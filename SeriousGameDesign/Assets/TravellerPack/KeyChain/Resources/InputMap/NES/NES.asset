@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc6e8bfec00608741bdd7f2115feeb3b, type: 3}
+  m_Name: NES
+  m_EditorClassIdentifier: 
+  m_name: NES
+  m_mapType: 1
+  m_buttonCount: 6
+  m_buttons:
+  - m_input: Button 1
+    m_key: A
+  - m_input: Button 0
+    m_key: B
+  - m_input: Button 9
+    m_key: Start
+  - m_input: Button 8
+    m_key: Select
+  - m_input: Axis 1
+    m_key: Horizontal
+  - m_input: Axis 2
+    m_key: Vertical
+  m_keyNames:
+  - A
+  - B
+  - Start
+  - Select
+  - Horizontal
+  - Vertical
+  m_defaultActionCount: 5
+  m_defaultAction:
+  - m_name: Horizontal
+    m_button:
+      m_input: Axis 1
+      m_key: Horizontal
+  - m_name: Vertical
+    m_button:
+      m_input: Axis 2
+      m_key: Vertical
+  - m_name: Jump
+    m_button:
+      m_input: Button 1
+      m_key: A
+  - m_name: Pause
+    m_button:
+      m_input: Button 8
+      m_key: Select
+  - m_name: Menu
+    m_button:
+      m_input: Button 9
+      m_key: Start
+  m_customActionCount: 2
+  m_customAction:
+  - m_name: Accelerate
+    m_button:
+      m_input: Button 1
+      m_key: A
+  - m_name: Deccelerate
+    m_button:
+      m_input: Button 0
+      m_key: B
