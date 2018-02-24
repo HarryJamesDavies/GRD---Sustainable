@@ -29,24 +29,4 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
     }
-    
-    public void RubbishDestroyed()
-    {
-        m_rubbishDestroyed++;
-    }
-
-    public void RubbishRecycled()
-    {
-        m_rubbishRecycled++;
-    }
-
-    public void RecyclingDestroyed()
-    {
-        m_recyclingDestroyed++;
-    }
-
-    public void RecyclingRecycled()
-    {
-        m_recyclingRecycled++;
-    }
 }

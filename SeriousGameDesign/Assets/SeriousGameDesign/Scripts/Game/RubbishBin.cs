@@ -6,13 +6,13 @@ public class RubbishBin : MonoBehaviour
 {
     public void BinObject(GameObject _object)
     {
-        if (_object.CompareTag("Rubbish"))
+        if (_object.CompareTag("Trash"))
         {
-            GameManager.Instance.RubbishDestroyed();
+            WorldManager.Instance.RubbishDestroyed();
         }
         else
         {
-            GameManager.Instance.RecyclingDestroyed();
+            WorldManager.Instance.RecyclingDestroyed();
         }
         Destroy(_object);
     }

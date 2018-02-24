@@ -10,11 +10,11 @@ public class RecyclingBin : MonoBehaviour
         {
             if(_object.CompareTag("Recycling"))
             {
-                GameManager.Instance.RecyclingRecycled();
+                WorldManager.Instance.RecyclingRecycled();
             }
             else
             {
-                GameManager.Instance.RubbishRecycled();
+                WorldManager.Instance.RubbishRecycled();
             }
             Destroy(_object);
         }

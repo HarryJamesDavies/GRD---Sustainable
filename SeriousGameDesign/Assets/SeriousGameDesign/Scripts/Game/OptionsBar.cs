@@ -15,6 +15,7 @@ public class OptionsBar : MonoBehaviour
     private Camera m_camera;
     private Transform m_parent;
     private Player m_player;
+    public Text m_nameText;
 
     private float m_offset = 6.0f;
 
@@ -30,8 +31,9 @@ public class OptionsBar : MonoBehaviour
         m_camera = _camera;
         m_canvas.worldCamera = m_camera;
         m_parent = _parent;
+        m_nameText.text = m_parent.name;
 
-        foreach(string action in _actions)
+        foreach (string action in _actions)
         {
             CreateButton(action);
         }
