@@ -1,0 +1,180 @@
+RetensionDataCount: 4
+
+Test11
+TotalLenght: 81.44683
+
+TimeChunkCount: 9
+
+ID: 0
+StartTime: 0
+EndTime: 5.470317
+ChunkLength: 5.470317
+
+ID: 1
+StartTime: 5.470317
+EndTime: 8.642904
+ChunkLength: 3.172587
+
+ID: 2
+StartTime: 8.642904
+EndTime: 23.0794
+ChunkLength: 14.43649
+
+ID: 3
+StartTime: 23.0794
+EndTime: 39.69904
+ChunkLength: 16.61965
+
+ID: 4
+StartTime: 39.69904
+EndTime: 56.484
+ChunkLength: 16.78496
+
+ID: 5
+StartTime: 56.484
+EndTime: 63.53048
+ChunkLength: 7.046478
+
+ID: 6
+StartTime: 63.53048
+EndTime: 68.42279
+ChunkLength: 4.892311
+
+ID: 7
+StartTime: 68.42279
+EndTime: 81.44683
+ChunkLength: 13.02404
+
+ID: 8
+StartTime: 81.44683
+EndTime: 85.7804
+ChunkLength: 4.333572
+
+==========================
+
+Test84
+TotalLenght: 78.74059
+
+TimeChunkCount: 7
+
+ID: 0
+StartTime: 0
+EndTime: 8.611837
+ChunkLength: 8.611837
+
+ID: 1
+StartTime: 8.611837
+EndTime: 23.73433
+ChunkLength: 15.12249
+
+ID: 2
+StartTime: 23.73433
+EndTime: 40.46846
+ChunkLength: 16.73413
+
+ID: 3
+StartTime: 40.46846
+EndTime: 49.58461
+ChunkLength: 9.11615
+
+ID: 4
+StartTime: 49.58461
+EndTime: 63.33103
+ChunkLength: 13.74643
+
+ID: 5
+StartTime: 63.33103
+EndTime: 78.74059
+ChunkLength: 15.40955
+
+ID: 6
+StartTime: 78.74059
+EndTime: 85.7804
+ChunkLength: 7.039818
+
+==========================
+
+Test93
+TotalLenght: 78.61554
+
+TimeChunkCount: 6
+
+ID: 0
+StartTime: 0
+EndTime: 24.24342
+ChunkLength: 24.24342
+
+ID: 1
+StartTime: 24.24342
+EndTime: 38.17976
+ChunkLength: 13.93635
+
+ID: 2
+StartTime: 38.17976
+EndTime: 50.18248
+ChunkLength: 12.00272
+
+ID: 3
+StartTime: 50.18248
+EndTime: 69.29803
+ChunkLength: 19.11555
+
+ID: 4
+StartTime: 69.29803
+EndTime: 78.61554
+ChunkLength: 9.317505
+
+ID: 5
+StartTime: 78.61554
+EndTime: 85.7804
+ChunkLength: 7.164864
+
+==========================
+
+Test78
+TotalLenght: 82.3985
+
+TimeChunkCount: 8
+
+ID: 0
+StartTime: 0
+EndTime: 9.146602
+ChunkLength: 9.146602
+
+ID: 1
+StartTime: 9.146602
+EndTime: 15.33976
+ChunkLength: 6.193155
+
+ID: 2
+StartTime: 15.33976
+EndTime: 29.69605
+ChunkLength: 14.35629
+
+ID: 3
+StartTime: 29.69605
+EndTime: 41.05917
+ChunkLength: 11.36312
+
+ID: 4
+StartTime: 41.05917
+EndTime: 60.39377
+ChunkLength: 19.3346
+
+ID: 5
+StartTime: 60.39377
+EndTime: 72.99786
+ChunkLength: 12.60408
+
+ID: 6
+StartTime: 72.99786
+EndTime: 82.3985
+ChunkLength: 9.400642
+
+ID: 7
+StartTime: 82.3985
+EndTime: 85.7804
+ChunkLength: 3.381905
+
+==========================
+
