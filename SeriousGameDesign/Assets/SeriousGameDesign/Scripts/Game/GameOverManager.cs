@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -45,7 +44,19 @@ public class GameOverManager : MonoBehaviour
 
             m_recycleRubbishToSpawn = GameManager.Instance.m_rubbishRecycled;
             m_recyclingRubbishText.text = ": " + GameManager.Instance.m_rubbishRecycled;
+
+            DataHandler.SaveCategoricData("TestData " + Time.time, DataHandler.OutDataPath, GenerateData());
         }
+    }
+
+    private List<CategoricData.CategoricPair> GenerateData()
+    {
+        List<CategoricData.CategoricPair> data = new List<CategoricData.CategoricPair>();
+        data.Add(new CategoricData.CategoricPair("RecyclingDestroyed", GameManager.Instance.m_recyclingDestroyed));
+        data.Add(new CategoricData.CategoricPair("RecyclingRecycled", GameManager.Instance.m_recyclingRecycled));
+        data.Add(new CategoricData.CategoricPair("RubbishDestroyed", GameManager.Instance.m_rubbishDestroyed));
+        data.Add(new CategoricData.CategoricPair("RubbishRecycled", GameManager.Instance.m_rubbishRecycled));
+        return data;
     }
 
     void Update()

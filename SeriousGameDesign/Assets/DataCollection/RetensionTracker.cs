@@ -5,14 +5,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using ExternalViewer;
 
-public enum GraphType
-{
-    Bar,
-    Pie,
-    Line,
-    Count
-}
-
 [Serializable]
 public class RetensionTracker : MonoBehaviour
 {
@@ -134,7 +126,6 @@ public class RetensionTracker : MonoBehaviour
             if (!file.FullName.Contains("meta") && file.FullName.Contains("txt"))
             {
                 files.Add(file.FullName.Replace(m_dataPath, ""));
-                Debug.Log(file.FullName.Replace(m_dataPath, ""));
             }
         }
         return files;
