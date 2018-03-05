@@ -29,7 +29,7 @@ public class WorldManager : MonoBehaviour
         else
         {
             Instance = this;
-            GameObject[] trash = GameObject.FindGameObjectsWithTag("Trash");
+            GameObject[] trash = GameObject.FindGameObjectsWithTag("Rubbish");
             GameObject[] recycling = GameObject.FindGameObjectsWithTag("Recycling");
             m_objectsInScene = trash.Length + recycling.Length;
         }

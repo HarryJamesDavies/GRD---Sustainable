@@ -22,20 +22,33 @@ public class OptionsBar : MonoBehaviour
     private bool m_initialised = false;
 
     public Transform m_buttonHolder;
-    public GameObject m_buttonPrefab;
+    public GameObject m_triggerButtonPrefab;
+    public GameObject m_toggleButtonPrefab;
 
-    public OptionsBar Initialise(Player _player, Camera _camera, Transform _parent, List<string> _actions)
+    private Dictionary<string, Action> m_triggerActions = new Dictionary<string, Action>();
+    private Dictionary<string, Action> m_toggleActions = new Dictionary<string, Action>();
+
+    public OptionsBar Initialise(Player _player, Camera _camera, Transform _parent, string _name, List<ActionInfo> _actions)
     {
         m_player = _player;
-        m_player.m_currentAction = "selecting";
+        m_player.m_currentAction = "Selecting";
         m_camera = _camera;
         m_canvas.worldCamera = m_camera;
         m_parent = _parent;
-        m_nameText.text = m_parent.name;
+        m_nameText.text = _name;
 
-        foreach (string action in _actions)
+        foreach (ActionInfo action in _actions)
         {
-            CreateButton(action);
+            CreateButton(action.m_actionName, action.m_toggle);
+
+            if (action.m_toggle)
+            {
+                m_toggleActions.Add(action.m_actionName, action.m_action);
+            }
+            else
+            {
+                m_triggerActions.Add(action.m_actionName, action.m_action);
+            }
         }
 
         m_transform.SetParent(_parent);
@@ -48,13 +61,24 @@ public class OptionsBar : MonoBehaviour
         return this;
     }
 
-    private void CreateButton(string _action)
+    private void CreateButton(string _action, bool _toggle)
     {
-        GameObject newButton = Instantiate(m_buttonPrefab, m_buttonHolder);
-        newButton.name = _action + " Button";
-        newButton.GetComponentInChildren<Text>().text = _action;
-        Button button = newButton.GetComponent<Button>();
-        button.onClick.AddListener(delegate { HandleButtonPress(_action); });
+        if (_toggle)
+        {
+            GameObject newButton = Instantiate(m_toggleButtonPrefab, m_buttonHolder);
+            newButton.name = _action + " Toogle";
+            newButton.GetComponentInChildren<Text>().text = _action;
+            Toggle button = newButton.GetComponent<Toggle>();
+            button.onValueChanged.AddListener(delegate { HandleTooglePress(_action, button.isOn); });
+        }
+        else
+        {
+            GameObject newButton = Instantiate(m_triggerButtonPrefab, m_buttonHolder);
+            newButton.name = _action + " Button";
+            newButton.GetComponentInChildren<Text>().text = _action;
+            Button button = newButton.GetComponent<Button>();
+            button.onClick.AddListener(delegate { HandleButtonPress(_action); });
+        }
     }
 
     void Update()
@@ -72,40 +96,19 @@ public class OptionsBar : MonoBehaviour
 
     public void HandleButtonPress(string _option)
     {
-        switch(_option)
+        m_triggerActions[_option].DoAction(new ActionData(m_player, m_parent.gameObject, this));
+        Destroy(gameObject);
+    }
+
+    public void HandleTooglePress(string _option, bool _state)
+    {
+        if (!_state)
         {
-            case "carry":
-                {
-                    m_player.CarryObject(m_parent.gameObject);
-                    Destroy(gameObject);
-                    break;
-                }
-            case "bin":
-                {
-                    if (m_parent)
-                    {
-                        m_parent.GetComponent<RubbishBin>().BinObject(m_player.m_currentCargo);
-                        m_player.m_currentCargo = null;
-                        m_player.m_disableCargo = false;
-                        Destroy(gameObject);
-                    }
-                    break;
-                }
-            case "recycle":
-                {
-                    if (m_parent)
-                    {
-                        m_parent.GetComponent<RecyclingBin>().BinObject(m_player.m_currentCargo);
-                        m_player.m_currentCargo = null;
-                        m_player.m_disableCargo = false;
-                        Destroy(gameObject);
-                    }
-                    break;
-                }
-            default:
-                {
-                    break;
-                }
+            m_toggleActions[_option].DoAction(new ActionData(m_player, m_parent.gameObject, this));
+        }
+        else
+        {
+            m_toggleActions[_option].Destroy();
         }
     }
 }

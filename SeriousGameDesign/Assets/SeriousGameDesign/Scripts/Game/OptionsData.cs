@@ -2,39 +2,42 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
+public class ActionInfo
+{
+    public string m_actionName;
+    public string m_compatibleAction = "Any";
+    public Action m_action;
+    public bool m_toggle = false;
+}
+
 public class OptionsData : MonoBehaviour
 {
-    [Serializable]
-    public class Pair
-    {
-        public string m_action;
-        public string m_compatibleAction;
-    }
-    public List<Pair> m_actions = new List<Pair>();
-    private List<string> m_myActions = new List<string>();
+    public string m_name;
+    public List<ActionInfo> m_actions = new List<ActionInfo>();
 
-    void Awake()
+    public List<ActionInfo> GetActions()
     {
-        foreach (Pair actionPair in m_actions)
-        {
-            m_myActions.Add(actionPair.m_action);
-        }
+        return m_actions;        
     }
 
-    public List<string> GetActions()
+    public List<ActionInfo> GetCompatibleActions(string _action)
     {
-        return m_myActions;        
-    }
+        List<ActionInfo> actions = new List<ActionInfo>();
 
-    public List<string> GetCompatibleActions(string _action)
-    {
-        List<string> actions = new List<string>();
-
-        foreach (Pair actionPair in m_actions)
+        foreach (ActionInfo actionPair in m_actions)
         {
             if (actionPair.m_compatibleAction == _action)
             {
-                actions.Add(actionPair.m_action);
+                actions.Add(actionPair);
+            }
+        }
+
+        foreach (ActionInfo actionPair in m_actions)
+        {
+            if (actionPair.m_compatibleAction == "Any")
+            {
+                actions.Add(actionPair);
             }
         }
 
