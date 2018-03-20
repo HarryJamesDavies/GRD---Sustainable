@@ -63,7 +63,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 500c9a33d23b2ee44a314acbd96d7e1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_rubbishDestroyed: 0
-  m_rubbishRecycled: 0
-  m_recyclingDestroyed: 0
-  m_recyclingRecycled: 0
+  m_state: 0
+  m_playArea: {fileID: 0}
+  m_resultArea: {fileID: 0}

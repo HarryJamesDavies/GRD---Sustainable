@@ -20,13 +20,14 @@ GameObject:
   m_Component:
   - component: {fileID: 4018179526597134}
   - component: {fileID: 54251645618075212}
-  - component: {fileID: 65417542491890980}
+  - component: {fileID: 135114175078746026}
   - component: {fileID: 114178851032401230}
   - component: {fileID: 114407209372117934}
   - component: {fileID: 114422218971971642}
+  - component: {fileID: 114194919618968846}
   m_Layer: 9
   m_Name: RubbishBag
-  m_TagString: Rubbish
+  m_TagString: Standard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -156,8 +157,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1040940997738166}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.52999973, y: 0, z: 13.77}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 57.72, y: 0, z: -9.970001}
+  m_LocalScale: {x: 0.7, y: 1, z: 1.1}
   m_Children:
   - {fileID: 4941653003559210}
   m_Father: {fileID: 0}
@@ -527,18 +528,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 2
---- !u!65 &65417542491890980
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1040940997738166}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.2, y: 2, z: 1}
-  m_Center: {x: -0.2, y: 1, z: 0}
 --- !u!95 &95036721331254502
 Animator:
   serializedVersion: 3
@@ -578,6 +567,17 @@ MonoBehaviour:
     m_compatibleAction: Any
     m_action: {fileID: 114422218971971642}
     m_toggle: 1
+--- !u!114 &114194919618968846
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1040940997738166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8bf7b800f0fbc04f9d0ccf0df657c60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114407209372117934
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -600,8 +600,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb58b315f3c460e4ea352c90e3d4e6f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_description: 'This is rubbish!
-
-'
+  m_description: Standard Rubbish
   m_inspectPanelPrefab: {fileID: 1962179287152242, guid: da4964e16d1ca684b8e20e5620f5bb20,
     type: 2}
+--- !u!135 &135114175078746026
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1040940997738166}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.74
+  m_Center: {x: -0.15, y: 0.71, z: -0.02}

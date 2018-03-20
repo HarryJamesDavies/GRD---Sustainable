@@ -95,7 +95,7 @@ public class RetensionTracker : MonoBehaviour
                         m_barChart.transform.parent.gameObject.SetActive(false);
                         m_pieChart.gameObject.SetActive(true);
                         m_lineGraph.gameObject.SetActive(false);
-                        m_pieChart.Draw(CalculateAllLengths(true));
+                        m_pieChart.Draw(CalculateAllLengths(true), Vector3.zero);
                         break;
                     }
                 case GraphType.Line:

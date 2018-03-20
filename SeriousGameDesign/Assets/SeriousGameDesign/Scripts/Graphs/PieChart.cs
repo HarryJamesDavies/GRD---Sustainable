@@ -22,12 +22,12 @@ namespace ExternalViewer
             {
                 m_wedges.Add(Instantiate(m_wedgePrefab) as Wedge);
                 m_wedges[wedgeIter].transform.SetParent(transform);
+                m_wedges[wedgeIter].GetComponent<RectTransform>().localPosition = Vector3.zero;
                 m_wedges[wedgeIter].gameObject.SetActive(false);
-                m_wedges[wedgeIter].GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
             }
         }
 
-        public void Draw(List<float> _values)
+        public void Draw(List<float> _values, Vector3 _rotation, bool _useLabels = true)
         {
             if (m_wedges.Count != 0)
             {
@@ -51,18 +51,25 @@ namespace ExternalViewer
                         RectTransform rt = wedge.GetComponent<RectTransform>();
 
                         rt.sizeDelta = new Vector2(m_radius, m_radius);
-                        wedge.transform.rotation = Quaternion.Euler(new Vector3(0.0f, 0.0f, zRotation));
+                        wedge.transform.rotation = Quaternion.Euler(new Vector3(_rotation.x, _rotation.y, zRotation));
 
-                        wedge.m_value.text = _values[valueIter].ToString("F2");
-                        wedge.m_value.rectTransform.rotation = Quaternion.Euler(Vector3.zero);
-
-                        wedge.m_value.rectTransform.anchoredPosition = Vector2.zero;
-                        if ((zRotation > -90.0f) || (zRotation < -270.0f))
+                        wedge.m_value.enabled = _useLabels;
+                        if (_useLabels)
                         {
-                            wedge.m_value.rectTransform.anchoredPosition = new Vector2(0.0f, 20.0f);
-                        }
+                            wedge.m_value.text = _values[valueIter].ToString("F2");
+                            wedge.m_value.rectTransform.rotation = Quaternion.Euler(Vector3.zero);
 
+                            wedge.m_value.rectTransform.anchoredPosition = Vector2.zero;
+                            if ((zRotation > -90.0f) || (zRotation < -270.0f))
+                            {
+                                wedge.m_value.rectTransform.anchoredPosition = new Vector2(0.0f, 20.0f);
+                            }
+                        }
                         zRotation -= wedge.m_wedge.fillAmount * 360.0f;
+                    }
+                    else
+                    {
+                        m_wedges[valueIter].gameObject.SetActive(false);
                     }
                 }
             }

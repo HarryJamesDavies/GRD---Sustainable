@@ -4,8 +4,21 @@ using UnityEngine;
 
 public class MainMenuManager : MonoBehaviour
 {
-    public void LoadNextScene()
+    public void LoadNextScene(string _scene)
     {
-        SceneChanger.TransitionScene("Main");
+        SceneChanger.TransitionScene(_scene);
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Exit();
+        }
+    }
+
+    public void Exit()
+    {
+        Application.Quit();
     }
 }

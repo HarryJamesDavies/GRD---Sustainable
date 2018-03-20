@@ -53,7 +53,8 @@ public class OptionsBar : MonoBehaviour
 
         m_transform.SetParent(_parent);
         Vector3 offsetDirection = Vector3.Cross(Vector3.up, (transform.position - m_camera.transform.position).normalized).normalized;
-        m_transform.localPosition = offsetDirection * m_offset;
+        //m_transform.localPosition = offsetDirection * m_offset/*Vector3.Distance(_camera.transform.position, m_parent.position)*/;
+        m_transform.localPosition = Vector3.zero;
         m_transform.LookAt(m_camera.transform);
 
         m_initialised = true;
@@ -87,7 +88,8 @@ public class OptionsBar : MonoBehaviour
         {
             //Vector3 offsetDirection = Vector3.Cross(Vector3.up, (transform.position - m_camera.transform.position).normalized).normalized;    
             Vector3 offsetDirection = Vector3.Cross(Vector3.up, m_camera.transform.forward * 30.0f).normalized;
-            m_transform.localPosition = offsetDirection * m_offset;
+            //m_transform.localPosition = offsetDirection * m_offset;
+            m_transform.localPosition = Vector3.zero;
             Debug.DrawRay(m_parent.transform.position, offsetDirection * 30.0f, Color.blue);
             Debug.DrawRay(m_camera.transform.position, m_camera.transform.forward * 30.0f, Color.red);
             m_transform.LookAt(m_camera.transform);

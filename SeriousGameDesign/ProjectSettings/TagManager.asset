@@ -6,6 +6,15 @@ TagManager:
   tags:
   - Recycling
   - Rubbish
+  - Plastic
+  - Metal
+  - Paper
+  - Cardboard
+  - Glass
+  - Food
+  - Electronics
+  - Chemical
+  - Standard
   layers:
   - Default
   - TransparentFX

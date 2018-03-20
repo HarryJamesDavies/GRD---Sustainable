@@ -5,16 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/SeriousGameDesign/Scenes/Graphs.unity
-    guid: 7bbf8e25fd89221428309aedc52a4217
   - enabled: 1
     path: Assets/SeriousGameDesign/Scenes/MainMenu.unity
     guid: 6296359856abd6a45b85f55800fd28b5
   - enabled: 1
-    path: Assets/SeriousGameDesign/Scenes/Main.unity
-    guid: d3b5f8093c364d4498578c8f61fb3b3b
+    path: Assets/SeriousGameDesign/Scenes/Recycling.unity
+    guid: ecb01e7525da73642a9f73114b02e33d
   - enabled: 1
-    path: Assets/SeriousGameDesign/Scenes/GameOver.unity
-    guid: 5ea7e8b0af989eb469f3941bc7059721
+    path: Assets/SeriousGameDesign/Scenes/Graphs.unity
+    guid: 7bbf8e25fd89221428309aedc52a4217
   m_configObjects: {}

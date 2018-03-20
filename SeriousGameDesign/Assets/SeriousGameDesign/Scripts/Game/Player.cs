@@ -29,8 +29,10 @@ public class Player : MonoBehaviour
     public OptionsBar m_optionsBarPrefab;
     private OptionsBar m_currentOptionBar = null;
 
+    public bool m_lockMovement = false;
     public float m_rotationForce = 3.0f;
     public string m_currentAction = "";
+    public float m_zoomSpeed = 10.0f;
 
     public bool m_disableCargo = false;
 
@@ -41,23 +43,32 @@ public class Player : MonoBehaviour
 
     private void Movement()
     {
-        Vector3 forwardMovement = (transform.forward * Input.GetAxis("Vertical"));
-        Vector3 rightMovement = (transform.right * Input.GetAxis("Horizontal"));
-        Vector3 upMovement = (transform.up * Input.GetAxis("Up"));
-        transform.position += forwardMovement + rightMovement + upMovement;
-
-        if (Input.GetMouseButton(1))
+        if (!m_lockMovement)
         {
-            float horizontalRotation = Input.GetAxis("Mouse X");
-            float verticalRotation = -Input.GetAxis("Mouse Y");
-            Vector3 finalRotation = transform.rotation.eulerAngles + (new Vector3(verticalRotation, horizontalRotation, 0.0f) * m_rotationForce);
-            transform.rotation = Quaternion.Euler(finalRotation);
-        }
+            Vector3 forwardMovement = Vector3.zero;
+            Vector3 rightMovement = Vector3.zero;
 
-        if(Input.GetKeyDown(KeyCode.L))
-        {
-            transform.position = Vector3.zero;
-            transform.rotation = Quaternion.Euler(Vector3.zero);
+            forwardMovement = (transform.forward * Input.GetAxis("Vertical"));
+            rightMovement = (transform.right * Input.GetAxis("Horizontal"));
+
+            //Vector3 upMovement = (transform.up * Input.GetAxis("Up")); 
+            Vector3 up = Vector3.Cross(transform.forward, transform.right);
+            Vector3 upMovement = (transform.up * -Input.GetAxis("Mouse ScrollWheel") * m_zoomSpeed);
+            transform.position += forwardMovement + rightMovement + upMovement;
+
+            if (Input.GetMouseButton(1))
+            {
+                float horizontalRotation = Input.GetAxis("Mouse X");
+                float verticalRotation = -Input.GetAxis("Mouse Y");
+                Vector3 finalRotation = transform.rotation.eulerAngles + (new Vector3(verticalRotation, horizontalRotation, 0.0f) * m_rotationForce);
+                transform.rotation = Quaternion.Euler(finalRotation);
+            }
+
+            if (Input.GetKeyDown(KeyCode.L))
+            {
+                transform.position = Vector3.zero;
+                transform.rotation = Quaternion.Euler(Vector3.zero);
+            }
         }
     }
 
@@ -127,7 +138,17 @@ public class Player : MonoBehaviour
                     m_disableCargo = false;
                 }
 
-                OptionsData data = m_currentlyHighlightedObject.GetComponent<OptionsData>();
+                OptionsData data;
+                DataReference dataRef = m_currentlyHighlightedObject.GetComponent<DataReference>();
+                if (dataRef)
+                {
+                    data = dataRef.m_data.GetComponent<OptionsData>();
+                }
+                else
+                {
+                    data = m_currentlyHighlightedObject.GetComponent<OptionsData>();
+                }
+
                 List<ActionInfo> actions = CheckForCompatibleAction(data);
                 if (actions.Count != 0)
                 {
@@ -140,10 +161,21 @@ public class Player : MonoBehaviour
 
     private void OpenOptionsBar()
     {
-        OptionsData data = m_currentlyHighlightedObject.GetComponent<OptionsData>();
+        OptionsData data;
+        DataReference dataRef = m_currentlyHighlightedObject.GetComponent<DataReference>();
+        if (dataRef)
+        {
+            data = dataRef.m_data.GetComponent<OptionsData>();
+            m_currentlySelectedObject = dataRef.m_data;
+        }
+        else
+        {
+            data = m_currentlyHighlightedObject.GetComponent<OptionsData>();
+            m_currentlySelectedObject = m_currentlyHighlightedObject;
+        }
+
         if (data)
         {
-            m_currentlySelectedObject = m_currentlyHighlightedObject;
             m_currentOptionBar = Instantiate(m_optionsBarPrefab).GetComponent<OptionsBar>();
             m_currentOptionBar.Initialise(this, m_camera, m_currentlySelectedObject.transform, data.m_name, data.GetCompatibleActions(""));
         }
@@ -155,6 +187,12 @@ public class Player : MonoBehaviour
 
     private void OpenOptionsBar(string _name, List<ActionInfo> _actions)
     {
+        DataReference dataRef = m_currentlySelectedObject.GetComponent<DataReference>();
+        if (dataRef)
+        {
+            m_currentlySelectedObject = dataRef.m_data;
+        }
+
         if (_actions.Count != 0)
         {
             m_currentOptionBar = Instantiate(m_optionsBarPrefab).GetComponent<OptionsBar>();
@@ -189,21 +227,32 @@ public class Player : MonoBehaviour
 
     public void CarryObject(GameObject _highlightedObject)
     {
-        m_currentCargo = _highlightedObject;
+        DataReference dataRef = _highlightedObject.GetComponent<DataReference>();
+        if (dataRef)
+        {
+            m_currentCargo = dataRef.m_data;
+        }
+        else
+        {
+            m_currentCargo = _highlightedObject;
+        }
         m_lock = m_currentCargo.AddComponent<LockObjectToMouse>().Initialise(m_camera);
         m_previousLayer = m_currentCargo.layer;
-        m_currentCargo.layer = m_cargoLayer;
+        MoveToLayer(m_currentCargo.transform, m_cargoLayer);
+        //m_currentCargo.layer = m_cargoLayer;
         m_currentAction = "Carry";
         m_prevGroundPosition = _highlightedObject.transform.position;
         m_heightOffset = m_groundClearance + (m_currentCargo.GetComponent<Collider>().bounds.size.y / 2.0f);
     }
 
-    private void DropCargo()
+    public void DropCargo()
     {
-        m_currentCargo.layer = m_previousLayer;
+        MoveToLayer(m_currentCargo.transform, m_previousLayer);
+        //m_currentCargo.layer = m_previousLayer;
         m_previousLayer = -1;
         Destroy(m_currentCargo.GetComponent<LockObjectToMouse>());
         m_currentCargo = null;
+        m_disableCargo = false;
         m_lock = null;
     }
 
@@ -239,5 +288,12 @@ public class Player : MonoBehaviour
         m_currentlySelectedObject = null;
 
         return actions;
+    }
+
+    void MoveToLayer(Transform root, int layer)
+    {
+        root.gameObject.layer = layer;
+        foreach (Transform child in root)
+            MoveToLayer(child, layer);
     }
 }

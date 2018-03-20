@@ -149,7 +149,7 @@ public class GraphHandler : MonoBehaviour
                             m_barChart.transform.parent.gameObject.SetActive(false);
                             m_pieChart.gameObject.SetActive(true);
                             m_lineGraph.gameObject.SetActive(false);
-                            m_pieChart.Draw(MultiplyList(m_categoricData.GetPercentages(), 360.0f));
+                            m_pieChart.Draw(MultiplyList(m_categoricData.GetPercentages(), 360.0f), Vector3.zero);
                         }
                         break;
                     }

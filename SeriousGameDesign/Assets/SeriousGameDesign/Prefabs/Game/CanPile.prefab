@@ -90,9 +90,10 @@ GameObject:
   - component: {fileID: 114350634011975854}
   - component: {fileID: 114568091605844796}
   - component: {fileID: 114104880505611232}
+  - component: {fileID: 114311066000439678}
   m_Layer: 9
   m_Name: CanPile
-  m_TagString: Recycling
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -189,7 +190,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1515157223069020}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -9.76, y: 0, z: -4.1800003}
+  m_LocalPosition: {x: 35.289997, y: 0, z: -14.66}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4687414391752240}
@@ -695,9 +696,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb58b315f3c460e4ea352c90e3d4e6f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_description: "This is \nRecycling!!"
+  m_description: Metal
   m_inspectPanelPrefab: {fileID: 1962179287152242, guid: da4964e16d1ca684b8e20e5620f5bb20,
     type: 2}
+--- !u!114 &114311066000439678
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1515157223069020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8bf7b800f0fbc04f9d0ccf0df657c60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114350634011975854
 MonoBehaviour:
   m_ObjectHideFlags: 1
