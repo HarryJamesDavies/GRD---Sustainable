@@ -38,7 +38,6 @@ public class BinCore : MonoBehaviour
     public void RemoveRubbish(GameObject _rubbish)
     {
         m_rubbish.Remove(_rubbish);
-        Destroy(_rubbish);
     }
 
     public Vector2 GetRatio()

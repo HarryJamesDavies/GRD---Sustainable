@@ -64,5 +64,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_state: 0
+  m_player: {fileID: 0}
   m_playArea: {fileID: 0}
+  m_playerPlayPoint: {fileID: 0}
   m_resultArea: {fileID: 0}
+  m_playerResultPoint: {fileID: 0}
+  m_outcomeArea: {fileID: 0}
+  m_playerOutcomePoint: {fileID: 0}
+  m_remainingRubbish: []
+  m_landFilledRubbish: []
+  m_landFilledRecycling: []
+  m_sortedRubbish: []
+  m_recycledRubbish: []
+  m_RuLF: {fileID: 0}
+  m_ReLF: {fileID: 0}
+  m_SR: {fileID: 0}
+  m_ReR: {fileID: 0}

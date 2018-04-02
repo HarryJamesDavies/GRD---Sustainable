@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class Rubbish : MonoBehaviour
 {
+    public bool m_ignoreManager = false;
+
 	void Start ()
     {
-        GameManager.Instance.m_remainingRubbish.Add(gameObject);
+        if(m_ignoreManager)
+        {
+            GameManager.Instance.m_remainingRubbish.Add(gameObject);
+        }
 	}
 }

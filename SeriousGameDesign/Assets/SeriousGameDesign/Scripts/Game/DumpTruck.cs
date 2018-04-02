@@ -98,7 +98,9 @@ public class DumpTruck : MonoBehaviour
         {
 
             GameObject rubbish = Instantiate(m_currentBin.m_rubbish[0], m_rubbishSpawnPoint.position, Quaternion.identity, transform);
-            Destroy(rubbish.GetComponent<Rubbish>());
+            GameManager.Instance.m_remainingRubbish.Remove(rubbish);
+            //rubbish.GetComponent<Rubbish>().m_ignoreManager = true; 
+            rubbish.GetComponent<Rigidbody>().useGravity = true;
             m_currentBin.RemoveRubbish(m_currentBin.m_rubbish[0]);
 
             if (m_currentBin.m_rubbish.Count == 0)
