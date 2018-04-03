@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/SeriousGameDesign/Scenes/Graphs.unity
     guid: 7bbf8e25fd89221428309aedc52a4217
+  - enabled: 1
+    path: Assets/SeriousGameDesign/Scenes/Results.unity
+    guid: ce524073f7a445949b627f3ccc20b4ca
   m_configObjects: {}

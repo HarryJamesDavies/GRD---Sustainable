@@ -18,9 +18,11 @@ public class LockObjectToMouse : MonoBehaviour
         return this;
     }
 
-    void OnDestroy()
+    public void Remove(Vector3 _throwForce)
     {
         m_rigidBody.isKinematic = false;
+        m_rigidBody.velocity = _throwForce;
+        Destroy(this);
     }
 
     public void UpdatePosition(Vector3 _position)

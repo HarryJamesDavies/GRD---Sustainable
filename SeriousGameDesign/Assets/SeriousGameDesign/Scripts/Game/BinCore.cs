@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public class SortedRubbish
+{
+    public List<GameObject> m_rubbish = new List<GameObject>();
+    public List<GameObject> m_recycing = new List<GameObject>();
+}
+
 public class BinCore : MonoBehaviour
 {
     public List<string> m_acceptableRubbish = new List<string>();
@@ -92,19 +98,31 @@ public class BinCore : MonoBehaviour
         m_rubbish.Clear();
     }
 
-    public List<GameObject> SortRubbish()
+    public SortedRubbish SortRubbish()
     {
-        List<GameObject> sortedRubbish = new List<GameObject>();
+        SortedRubbish sortedRubbish = new SortedRubbish();
 
         foreach(GameObject rubbish in m_rubbish)
         {
             if (!CheckAcceptable(rubbish))
             {
-                sortedRubbish.Add(rubbish);
+                if (rubbish.CompareTag("Standard"))
+                {
+                    sortedRubbish.m_rubbish.Add(rubbish);
+                }
+                else
+                {
+                    sortedRubbish.m_recycing.Add(rubbish);
+                }
             }
         }
 
-        foreach (GameObject rubbish in sortedRubbish)
+        foreach (GameObject rubbish in sortedRubbish.m_rubbish)
+        {
+            m_rubbish.Remove(rubbish);
+        }
+
+        foreach (GameObject rubbish in sortedRubbish.m_recycing)
         {
             m_rubbish.Remove(rubbish);
         }

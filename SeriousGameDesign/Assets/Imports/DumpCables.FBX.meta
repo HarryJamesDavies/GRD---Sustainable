@@ -28,6 +28,10 @@ ModelImporter:
     100044: Leg (8)
     100046: Leg (9)
     100048: Leg (9)001
+    100050: Sign A
+    100052: Sign B
+    100054: Sign C
+    100056: Sign D
     400000: CrossBar (1)
     400002: CrossBar (2)
     400004: DumpBars (1)
@@ -53,6 +57,10 @@ ModelImporter:
     400044: Leg (8)
     400046: Leg (9)
     400048: Leg (9)001
+    400050: Sign A
+    400052: Sign B
+    400054: Sign C
+    400056: Sign D
     2100000: 13 - Default
     2100002: 'Material #6'
     2300000: CrossBar (1)
@@ -77,6 +85,10 @@ ModelImporter:
     2300038: Leg (8)
     2300040: Leg (9)
     2300042: Leg (9)001
+    2300044: Sign A
+    2300046: Sign B
+    2300048: Sign C
+    2300050: Sign D
     3300000: CrossBar (1)
     3300002: CrossBar (2)
     3300004: DumpBars (1)
@@ -99,6 +111,10 @@ ModelImporter:
     3300038: Leg (8)
     3300040: Leg (9)
     3300042: Leg (9)001
+    3300044: Sign A
+    3300046: Sign B
+    3300048: Sign C
+    3300050: Sign D
     4300000: DumpBars (2)
     4300002: DumpBars (1)
     4300004: CrossBar (1)
@@ -121,6 +137,10 @@ ModelImporter:
     4300038: Leg (1)001
     4300040: Leg (11)
     4300042: Leg (9)001
+    4300044: Sign A
+    4300046: Sign B
+    4300048: Sign C
+    4300050: Sign D
     7400000: Take 001
     9500000: //RootNode
   externalObjects: {}

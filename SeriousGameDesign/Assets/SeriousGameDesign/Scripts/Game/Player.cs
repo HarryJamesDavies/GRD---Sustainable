@@ -36,6 +36,10 @@ public class Player : MonoBehaviour
 
     public bool m_disableCargo = false;
 
+    private Vector3 m_cargoPreviousPosition;
+    public Vector2 m_displacementRange = new Vector2(0.0f, 100.0f);
+    public float m_maxThrowMagnitude = 10.0f;
+
     void Update()
     {
         Movement();
@@ -84,6 +88,10 @@ public class Player : MonoBehaviour
         {
             OptionsBarHandle();
             CargoHandle();
+            if(m_currentCargo)
+            {
+                m_cargoPreviousPosition = m_currentCargo.transform.position;
+            }
         }
     }
 
@@ -152,8 +160,16 @@ public class Player : MonoBehaviour
                 List<ActionInfo> actions = CheckForCompatibleAction(data);
                 if (actions.Count != 0)
                 {
-                    OpenOptionsBar(data.m_name, actions);
-                    m_disableCargo = true;
+                    if (actions.Count == 1 && !actions[0].m_requiresOptionBar)
+                    {
+                        actions[0].m_action.DoAction(new ActionData(this, m_currentlySelectedObject, null));
+                        m_disableCargo = true;
+                    }
+                    else
+                    {
+                        OpenOptionsBar(data.m_name, actions);
+                        m_disableCargo = true;
+                    }
                 }
             }
         }
@@ -176,8 +192,19 @@ public class Player : MonoBehaviour
 
         if (data)
         {
-            m_currentOptionBar = Instantiate(m_optionsBarPrefab).GetComponent<OptionsBar>();
-            m_currentOptionBar.Initialise(this, m_camera, m_currentlySelectedObject.transform, data.m_name, data.GetCompatibleActions(""));
+            List<ActionInfo> actions = data.GetCompatibleActions("");
+            if (actions.Count != 0)
+            {
+                if (actions.Count == 1 && !actions[0].m_requiresOptionBar)
+                {
+                    actions[0].m_action.DoAction(new ActionData(this, m_currentlySelectedObject, null));
+                }
+                else
+                {
+                    m_currentOptionBar = Instantiate(m_optionsBarPrefab).GetComponent<OptionsBar>();
+                    m_currentOptionBar.Initialise(this, m_camera, m_currentlySelectedObject.transform, data.m_name, actions);
+                }
+            }
         }
         else
         {
@@ -214,13 +241,13 @@ public class Player : MonoBehaviour
     {
         if (m_currentCargo && !m_disableCargo)
         {
+            MoveCargo();
             if (Input.GetMouseButtonDown(0))
             {
                 DropCargo();
             }
             else
             {
-                MoveCargo();
             }
         }
     }
@@ -250,10 +277,12 @@ public class Player : MonoBehaviour
         MoveToLayer(m_currentCargo.transform, m_previousLayer);
         //m_currentCargo.layer = m_previousLayer;
         m_previousLayer = -1;
-        Destroy(m_currentCargo.GetComponent<LockObjectToMouse>());
+        m_currentCargo.GetComponent<LockObjectToMouse>().Remove(Vector3.zero);
+        //m_currentCargo.GetComponent<LockObjectToMouse>().Remove(CalculateDropForce());
         m_currentCargo = null;
         m_disableCargo = false;
         m_lock = null;
+        m_cargoPreviousPosition = Vector3.zero;
     }
 
     private void MoveCargo()
@@ -267,7 +296,7 @@ public class Player : MonoBehaviour
                 m_prevGroundPosition = m_downHit.point;
                 m_lock.UpdatePosition(cargoPos);
             }
-            else if(m_currentCargo)
+            else if (m_currentCargo)
             {
                 Vector3 cargoPos = new Vector3(m_prevGroundPosition.x,
                     m_prevGroundPosition.y + m_heightOffset, m_prevGroundPosition.z);
@@ -295,5 +324,27 @@ public class Player : MonoBehaviour
         root.gameObject.layer = layer;
         foreach (Transform child in root)
             MoveToLayer(child, layer);
+    }
+
+    private Vector3 CalculateDropForce()
+    {
+        Vector3 displacement = (m_currentCargo.transform.position - m_cargoPreviousPosition).normalized;
+        Vector3 direction = displacement.normalized;
+
+        float distance = Vector3.Distance(m_currentCargo.transform.position, m_cargoPreviousPosition);
+        if (distance < m_displacementRange.x)
+        {
+            distance = m_displacementRange.x;
+        }
+        else if(distance > m_displacementRange.y)
+        {
+            distance = m_displacementRange.y;
+        }
+
+        float distancePercentage = distance / m_displacementRange.y;
+        float magnitude = distancePercentage * m_maxThrowMagnitude;
+
+        Vector3 result = magnitude * direction;
+        return result;
     }
 }

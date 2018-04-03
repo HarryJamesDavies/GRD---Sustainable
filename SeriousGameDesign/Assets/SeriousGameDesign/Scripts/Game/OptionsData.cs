@@ -9,6 +9,7 @@ public class ActionInfo
     public string m_compatibleAction = "Any";
     public Action m_action;
     public bool m_toggle = false;
+    public bool m_requiresOptionBar = false;
 }
 
 public class OptionsData : MonoBehaviour

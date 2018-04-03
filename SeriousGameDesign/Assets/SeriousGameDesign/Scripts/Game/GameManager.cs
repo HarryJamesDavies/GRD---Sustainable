@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
     public List<GameObject> m_landFilledRubbish = new List<GameObject>();
     public List<GameObject> m_landFilledRecycling = new List<GameObject>();
     public List<GameObject> m_sortedRubbish = new List<GameObject>();
+    public List<GameObject> m_sortedRecycling = new List<GameObject>();
     public List<GameObject> m_recycledRubbish = new List<GameObject>();
     //public int m_landFilledRubbish = 0;
     //public int m_landFilledRecycling = 0;

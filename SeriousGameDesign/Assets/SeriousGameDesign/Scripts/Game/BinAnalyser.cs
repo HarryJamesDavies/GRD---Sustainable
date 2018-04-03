@@ -68,12 +68,10 @@ public class BinAnalyser : MonoBehaviour
             if(rubbish.CompareTag("Standard"))
             {
                 GameManager.Instance.m_landFilledRubbish.Add(rubbish);
-                //GameManager.Instance.m_landFilledRubbish++;
             }
             else
             {
                 GameManager.Instance.m_landFilledRecycling.Add(rubbish);
-                //GameManager.Instance.m_landFilledRecycling++;
             }
         }
         ResultManager.Instance.LandFillBin(m_bin);
@@ -82,9 +80,10 @@ public class BinAnalyser : MonoBehaviour
 
     public void Sort()
     {
-        List<GameObject> sortedRubbish = m_bin.SortRubbish();
-        GameManager.Instance.m_sortedRubbish.AddRange(sortedRubbish);
-        //GameManager.Instance.m_sortedRubbish += sortedRubbish.Count;
+        SortedRubbish sortedRubbish = m_bin.SortRubbish();
+        GameManager.Instance.m_sortedRubbish.AddRange(sortedRubbish.m_rubbish);
+        GameManager.Instance.m_sortedRecycling.AddRange(sortedRubbish.m_recycing);
+
         Vector2 ratio = m_bin.GetRatio();
 
         m_values.Clear();
@@ -107,7 +106,6 @@ public class BinAnalyser : MonoBehaviour
     public void Recycle()
     {
         GameManager.Instance.m_recycledRubbish.AddRange(m_bin.m_rubbish);
-        //GameManager.Instance.m_recycledRubbish += m_bin.m_rubbish.Count;
         ResultManager.Instance.RecycleBin(m_bin);
         ResetAnalyser();
     }
