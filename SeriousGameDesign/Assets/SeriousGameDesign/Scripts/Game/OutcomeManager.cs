@@ -38,18 +38,26 @@ public class OutcomeManager : MonoBehaviour
     private float m_spawnLength = 0.0f;
     private float m_totalSpawnLength = 0.0f;
 
-    public List<GameObject> m_totalRubbish = new List<GameObject>();
+    public List<GameObject> m_totalObjects = new List<GameObject>();
     public List<GameObject> m_currentRubbish = new List<GameObject>();
     public List<WeightObjectResult> m_weightObjectResults = new List<WeightObjectResult>();
+    public GameObject m_moneyBag;
     public Transform m_rubbishHolder;
 
+    public List<GameObject> m_sortedMoneyBags = new List<GameObject>();
+
+    private bool m_spawnObjects = false;
     private bool m_spawnRubbish = false;
+    private bool m_spawnRecycling = false;
+    private bool m_spawnMoney = false;
+
     private bool m_rubbishSpawned = false;
     private bool m_showOutcome = false;
     private bool m_outcomeShown = false;
 
     private int m_rubbishPerRound;
     public int m_maxDumpPerRound = 10;
+    private int m_spawnedRubbish = 0;
 
     [Header("UI")]
     public SignType m_signType = SignType.Rubbish;
@@ -102,15 +110,30 @@ public class OutcomeManager : MonoBehaviour
 
     public void Begin()
     {
-        m_totalRubbish.AddRange(GameManager.Instance.m_landFilledRubbish);
-        m_totalRubbish.AddRange(GameManager.Instance.m_sortedRubbish);
-        m_totalRubbish.AddRange(GameManager.Instance.m_landFilledRecycling);
-        m_totalRubbish.AddRange(GameManager.Instance.m_sortedRecycling);
-        m_currentRubbish.AddRange(m_totalRubbish);
+        m_totalObjects.AddRange(m_currentRubbish);
+        m_totalObjects.AddRange(GameManager.Instance.m_landFilledRubbish);
+        m_totalObjects.AddRange(GameManager.Instance.m_sortedRubbish);
+        m_totalObjects.AddRange(GameManager.Instance.m_landFilledRecycling);
+        m_totalObjects.AddRange(GameManager.Instance.m_sortedRecycling);
 
-        if (m_currentRubbish.Count > m_maxDumpPerRound)
+        foreach (GameObject @object in GameManager.Instance.m_sortedRubbish)
         {
-            m_rubbishPerRound = Mathf.CeilToInt(m_currentRubbish.Count / Mathf.CeilToInt((float)m_currentRubbish.Count / m_maxDumpPerRound));
+            m_sortedMoneyBags.Add(m_moneyBag);
+            m_totalObjects.Add(m_moneyBag);
+        }
+
+        foreach (GameObject @object in GameManager.Instance.m_sortedRecycling)
+        {
+            m_sortedMoneyBags.Add(m_moneyBag);
+            m_totalObjects.Add(m_moneyBag);
+        }
+
+        m_currentRubbish.AddRange(GameManager.Instance.m_landFilledRubbish);
+        m_currentRubbish.AddRange(GameManager.Instance.m_sortedRubbish);
+
+        if (m_totalObjects.Count > m_maxDumpPerRound)
+        {
+            m_rubbishPerRound = Mathf.CeilToInt(m_totalObjects.Count / Mathf.CeilToInt((float)m_totalObjects.Count / m_maxDumpPerRound));
         }
         m_truck.Play("MoveTruckIn");
     }
@@ -128,6 +151,7 @@ public class OutcomeManager : MonoBehaviour
     public void OnBinIn()
     {
         m_bin.Play("DumpLoad");
+        m_spawnRubbish = true;
     }
 
     public void OnDumpBegin(float _length)
@@ -147,21 +171,21 @@ public class OutcomeManager : MonoBehaviour
             m_spawnLength = m_totalSpawnLength / m_currentRubbish.Count;
             m_remainingTime = 0.0f;
         }
-        m_spawnRubbish = true;
+        m_spawnObjects = true;
     }
 
     public void OnDumpEnd()
     {
-        if(m_currentRubbish.Count > 0)
+        if(m_spawnedRubbish < m_totalObjects.Count)
         {
             m_bin.Play("DumpLoad", -1, 0.0f);
             m_bin.Play("DumpLoad");
         }
         else
         {
+            m_spawnObjects = false;
             m_bin.Play("MoveBinOut");
         }
-        m_spawnRubbish = false;
     }
 
     public void OnBinOut()
@@ -172,7 +196,7 @@ public class OutcomeManager : MonoBehaviour
 
     void Update()
     {
-        if (m_spawnRubbish)
+        if (m_spawnObjects)
         {
             SpawnRubbish();
         }
@@ -196,24 +220,56 @@ public class OutcomeManager : MonoBehaviour
             rubbish.transform.localScale = normalScale * 2.0f;
             rubbish.GetComponent<Rigidbody>().useGravity = true;
             m_currentRubbish.RemoveAt(0);
+            m_spawnedRubbish++;
 
-            if(rubbish.CompareTag("Standard"))
+            if (m_spawnRubbish)
             {
                 m_currentRubbishCount++;
                 m_rubbishSign.text = "= " + m_currentRubbishCount.ToString();
+
+                m_currentWeight += 0.7f;
+                m_weightSign.text = m_currentWeight.ToString("F2");
             }
-            else
+            else if (m_spawnRecycling)
             {
                 m_currentRecyclingCount++;
                 m_recyclingSign.text = "= " + m_currentRecyclingCount.ToString();
+
+                m_currentWeight += 0.7f;
+                m_weightSign.text = m_currentWeight.ToString("F2");
             }
-            m_currentWeight += 0.7f;
-            m_weightSign.text = m_currentWeight.ToString("F2");
+            else if (m_spawnMoney)
+            {
+                m_currentSortCount++;
+                m_sortedSign.text = "= " + m_currentSortCount.ToString();
+            }
 
             if (m_currentRubbish.Count == 0)
             {
-                m_spawnRubbish = false;
-                m_sortedSign.text = "= " + (GameManager.Instance.m_sortedRubbish.Count + GameManager.Instance.m_sortedRecycling.Count).ToString();
+                if (m_spawnRubbish)
+                {
+                    m_spawnRubbish = false;
+                    m_spawnRecycling = true;
+
+                    m_currentRubbish.AddRange(GameManager.Instance.m_landFilledRecycling);
+                    m_currentRubbish.AddRange(GameManager.Instance.m_sortedRecycling);
+
+                    m_remainingTime = m_spawnLength;
+                }
+                else if (m_spawnRecycling)
+                {
+                    m_spawnRecycling = false;
+                    m_spawnMoney = true;
+
+                    m_currentRubbish.AddRange(m_sortedMoneyBags);
+
+                    m_remainingTime = m_spawnLength;
+                }
+                else if (m_spawnMoney)
+                {
+                    m_spawnMoney = false;
+                    m_spawnObjects = false;
+                }
             }
             else
             {
@@ -274,8 +330,8 @@ public class OutcomeManager : MonoBehaviour
     {
         ResultData data = new GameObject("ResultsData").AddComponent<ResultData>();
 
-        data.Initalise(m_weightPerPerson, m_weightPerStreet, GameManager.Instance.m_landFilledRubbish.Count,
-            GameManager.Instance.m_landFilledRecycling.Count, GameManager.Instance.m_sortedRecycling.Count,
+        data.Initalise(m_weightPerPerson, m_weightPerStreet, m_currentRubbishCount,
+            m_currentRecyclingCount, m_currentSortCount,
             m_weightObjectResults);
 
         SceneChanger.TransitionScene("Results");

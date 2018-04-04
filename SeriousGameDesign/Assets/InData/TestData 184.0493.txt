@@ -1,0 +1,1 @@
+Categoric 5 WeightPerPerson 30.80001 WeightPerStreet 308.0001 LandfilledRubbish 43 LandfilledRecycling 1 SortedRubbish 3 

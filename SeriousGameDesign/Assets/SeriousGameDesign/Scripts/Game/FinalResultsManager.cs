@@ -52,6 +52,8 @@ public class FinalResultsManager : MonoBehaviour
                 m_weightObjectResultsCounts[objectIter].text = m_data.m_weightObjectResults[objectIter].m_count.ToString();
             }
 
+            DataHandler.SaveCategoricData("TestData " + Time.time, DataHandler.OutDataPath, GenerateData());
+
             Destroy(m_data.gameObject);
             m_data = null;
         }
@@ -60,5 +62,17 @@ public class FinalResultsManager : MonoBehaviour
 	public void ReturnToMenu()
     {
         SceneChanger.TransitionScene("MainMenu");
+    }
+
+    private List<CategoricData.CategoricPair> GenerateData()
+    {
+        List<CategoricData.CategoricPair> data = new List<CategoricData.CategoricPair>();
+        data.Add(new CategoricData.CategoricPair("WeightPerPerson", m_data.m_weightPerPerson));
+        data.Add(new CategoricData.CategoricPair("WeightPerStreet", m_data.m_weightPerStreet));
+
+        data.Add(new CategoricData.CategoricPair("LandfilledRubbish", m_data.m_landfileldRubbish));
+        data.Add(new CategoricData.CategoricPair("LandfilledRecycling", m_data.m_landfilledRecycling));
+        data.Add(new CategoricData.CategoricPair("SortedRubbish", m_data.m_sortedRubbish));
+        return data;
     }
 }

@@ -1014,23 +1014,6 @@ Transform:
   m_Father: {fileID: 1462503396}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: -87, y: 36, z: 32}
---- !u!1 &106239650 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1869073637771760, guid: e4e1fed6116d9bc4480ac9d6d84c18c5,
-    type: 2}
-  m_PrefabInternal: {fileID: 1033372514}
---- !u!65 &106239655
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 106239650}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.26, y: 0.22, z: 0.1}
-  m_Center: {x: 0.04104543, y: -0.053918723, z: -0.1}
 --- !u!1 &111703059 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1701265237571706, guid: 749e42f4641a1ac49acfbd7751eed5ef,
@@ -3617,7 +3600,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &649300290
 Transform:
   m_ObjectHideFlags: 0
@@ -5989,11 +5972,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 1656549818}
     m_Modifications:
-    - target: {fileID: 114790680145070398, guid: e4e1fed6116d9bc4480ac9d6d84c18c5,
-        type: 2}
-      propertyPath: m_acceptableRubbish.Array.size
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 4902024675544706, guid: e4e1fed6116d9bc4480ac9d6d84c18c5, type: 2}
       propertyPath: m_LocalPosition.x
       value: -15.67
@@ -6029,47 +6007,6 @@ Prefab:
     - target: {fileID: 1179973050022906, guid: e4e1fed6116d9bc4480ac9d6d84c18c5, type: 2}
       propertyPath: m_Name
       value: Recycling Bin (3)
-      objectReference: {fileID: 0}
-    - target: {fileID: 4902024675544706, guid: e4e1fed6116d9bc4480ac9d6d84c18c5, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 98.116005
-      objectReference: {fileID: 0}
-    - target: {fileID: 4902024675544706, guid: e4e1fed6116d9bc4480ac9d6d84c18c5, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 5.000003
-      objectReference: {fileID: 0}
-    - target: {fileID: 4902024675544706, guid: e4e1fed6116d9bc4480ac9d6d84c18c5, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 5.000003
-      objectReference: {fileID: 0}
-    - target: {fileID: 114393441563507238, guid: e4e1fed6116d9bc4480ac9d6d84c18c5,
-        type: 2}
-      propertyPath: m_description
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114790680145070398, guid: e4e1fed6116d9bc4480ac9d6d84c18c5,
-        type: 2}
-      propertyPath: m_acceptableRubbish.Array.data[0]
-      value: Plastic
-      objectReference: {fileID: 0}
-    - target: {fileID: 114790680145070398, guid: e4e1fed6116d9bc4480ac9d6d84c18c5,
-        type: 2}
-      propertyPath: m_acceptableRubbish.Array.data[1]
-      value: Cardboard
-      objectReference: {fileID: 0}
-    - target: {fileID: 1179973050022906, guid: e4e1fed6116d9bc4480ac9d6d84c18c5, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114790680145070398, guid: e4e1fed6116d9bc4480ac9d6d84c18c5,
-        type: 2}
-      propertyPath: m_resultBin
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114922654727086292, guid: e4e1fed6116d9bc4480ac9d6d84c18c5,
-        type: 2}
-      propertyPath: m_actions.Array.data[2].m_requiresOptionBar
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e4e1fed6116d9bc4480ac9d6d84c18c5, type: 2}
@@ -8614,7 +8551,7 @@ MonoBehaviour:
   m_piston: {fileID: 431783978}
   m_bin: {fileID: 1706819935}
   m_rubbishSpawnPoint: {fileID: 1646624589}
-  m_totalRubbish: []
+  m_totalObjects: []
   m_currentRubbish:
   - {fileID: 1505832180}
   - {fileID: 1505832180}
@@ -8657,7 +8594,9 @@ MonoBehaviour:
   - {fileID: 1505832180}
   - {fileID: 1505832180}
   m_weightObjectResults: []
+  m_moneyBag: {fileID: 1864501138715344, guid: 799738755acacf141b89edcd6b39f3ee, type: 2}
   m_rubbishHolder: {fileID: 1369054295}
+  m_sortedMoneyBags: []
   m_maxDumpPerRound: 40
   m_signType: 0
   m_rubbishSign: {fileID: 674703454}

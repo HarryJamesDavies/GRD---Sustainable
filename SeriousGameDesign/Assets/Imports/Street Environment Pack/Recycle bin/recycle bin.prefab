@@ -56,7 +56,6 @@ GameObject:
   - component: {fileID: 54267361827037256}
   - component: {fileID: 65318005885374964}
   - component: {fileID: 114922654727086292}
-  - component: {fileID: 114973072051103150}
   - component: {fileID: 114393441563507238}
   - component: {fileID: 114076097677044938}
   - component: {fileID: 114790680145070398}
@@ -198,6 +197,7 @@ GameObject:
   - component: {fileID: 23154778347765352}
   - component: {fileID: 114074263945393196}
   - component: {fileID: 65913714925261484}
+  - component: {fileID: 65368945138367138}
   m_Layer: 0
   m_Name: InnerBin
   m_TagString: Untagged
@@ -371,9 +371,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1179973050022906}
-  m_LocalRotation: {x: -0, y: 0.99144495, z: -0, w: 0.13052596}
-  m_LocalPosition: {x: -8.200001, y: -4.6, z: 34.5}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalRotation: {x: -0, y: 0.7553745, z: -0, w: 0.65529335}
+  m_LocalPosition: {x: -15.67, y: -4.6, z: 23.42}
+  m_LocalScale: {x: 5.000003, y: 5, z: 5.000003}
   m_Children:
   - {fileID: 4116329730458954}
   - {fileID: 4566995557865076}
@@ -388,7 +388,7 @@ Transform:
   - {fileID: 4411673407732218}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 98.116005, z: 0}
 --- !u!23 &23021724149550398
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -644,6 +644,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 1.1, z: 0.05}
   m_Center: {x: 0, y: 0.65, z: 0.25}
+--- !u!65 &65368945138367138
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1869073637771760}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.26, y: 0.22, z: 0.1}
+  m_Center: {x: 0.04104543, y: -0.053918723, z: -0.1}
 --- !u!65 &65644829986075986
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -817,7 +829,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_acceptableRubbish:
-  - Food
+  - Plastic
+  - Cardboard
   m_rubbish: []
   m_dropPoint: {fileID: 4411673407732218}
   m_resultBin: 0
@@ -838,22 +851,9 @@ MonoBehaviour:
     m_compatibleAction: Carry
     m_action: {fileID: 114076097677044938}
     m_toggle: 0
-  - m_actionName: Carry
-    m_compatibleAction: 
-    m_action: {fileID: 114973072051103150}
-    m_toggle: 0
+    m_requiresOptionBar: 0
   - m_actionName: Inspect
     m_compatibleAction: Any
     m_action: {fileID: 114393441563507238}
     m_toggle: 1
---- !u!114 &114973072051103150
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1179973050022906}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c61bc336f9c7b14db374dfbfe9643df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+    m_requiresOptionBar: 1
