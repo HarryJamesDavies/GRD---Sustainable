@@ -321,12 +321,12 @@ public class OutcomeManager : MonoBehaviour
         if (m_currentWeight >= m_weightPerStreet)
         {
             m_outcomeShown = true;
-            Debug.Log("Done");
-            CreateResultsData();
+            CreateWeekResultsData();
+            SceneChanger.TransitionScene("Results");
         }
     }
 
-    private void CreateResultsData()
+    private void CreateWeekResultsData()
     {
         ResultData data = new GameObject("ResultsData").AddComponent<ResultData>();
 
@@ -334,7 +334,19 @@ public class OutcomeManager : MonoBehaviour
             m_currentRecyclingCount, m_currentSortCount,
             m_weightObjectResults);
 
-        SceneChanger.TransitionScene("Results");
+        DataHandler.SaveCategoricData("WeekResults", GameManager.CurrentOutFolderPath, GenerateWeekData(data));
+    }
+
+    private List<CategoricData.CategoricPair> GenerateWeekData(ResultData _data)
+    {
+        List<CategoricData.CategoricPair> data = new List<CategoricData.CategoricPair>();
+        data.Add(new CategoricData.CategoricPair("WeightPerPersonWeek", _data.m_weightPerPerson));
+        data.Add(new CategoricData.CategoricPair("WeightPerStreetWeek", _data.m_weightPerStreet));
+
+        data.Add(new CategoricData.CategoricPair("LandfilledRubbishWeek", _data.m_landfileldRubbish));
+        data.Add(new CategoricData.CategoricPair("LandfilledRecyclingWeek", _data.m_landfilledRecycling));
+        data.Add(new CategoricData.CategoricPair("SortedRubbishWeek", _data.m_sortedRubbish));
+        return data;
     }
 
     public void AddWeightResult(Sprite _icon, float _weight)

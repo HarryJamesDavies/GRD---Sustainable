@@ -43,6 +43,8 @@ public class GameManager : MonoBehaviour
     public Text m_SR;
     public Text m_ReR;
 
+    public static string CurrentOutFolderPath = "";
+
     void Awake()
     {
         CreateInstance();
@@ -58,6 +60,11 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
         }
+    }
+
+    void Start()
+    {
+        CurrentOutFolderPath = DataHandler.CreateFolder("Play (1)", DataHandler.OutDataPath);
     }
 
     void Update()

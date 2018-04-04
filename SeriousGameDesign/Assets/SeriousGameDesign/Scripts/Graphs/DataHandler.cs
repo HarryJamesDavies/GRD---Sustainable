@@ -18,6 +18,26 @@ public class DataHandler : MonoBehaviour
         InDataPath = Application.dataPath + "/InData";
         OutDataPath = Application.dataPath + "/OutData";
     }
+
+    public static string CreateFolder(string _folderName, string _folderPath)
+    {
+        if (!Directory.Exists(_folderPath))
+        {
+            Directory.CreateDirectory(_folderPath);
+        }
+
+        if (!Directory.Exists(_folderPath + "/" + _folderName))
+        {
+            Directory.CreateDirectory(_folderPath + "/" + _folderName);
+        }
+
+#if UNITY_EDITOR
+        AssetDatabase.Refresh();
+#endif
+
+        return _folderPath + "/" + _folderName;
+    }
+
     public static void SaveCategoricData(string _fileName, string _filePath, List<CategoricData.CategoricPair> _data)
     {
         if (!Directory.Exists(_filePath))

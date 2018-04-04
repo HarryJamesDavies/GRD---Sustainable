@@ -2101,6 +2101,12 @@ MonoBehaviour:
   - {fileID: 1799381232}
   - {fileID: 1876847983}
   - {fileID: 2094569427}
+  m_day: 0
+  m_dayRubbishLandfilled: 0
+  m_dayRecyclingLandfilled: 0
+  m_dayRubbishSorted: 0
+  m_dayRecyclingSorted: 0
+  m_dayRecyclingRecycled: 0
 --- !u!1 &344538105
 GameObject:
   m_ObjectHideFlags: 0
@@ -8552,47 +8558,7 @@ MonoBehaviour:
   m_bin: {fileID: 1706819935}
   m_rubbishSpawnPoint: {fileID: 1646624589}
   m_totalObjects: []
-  m_currentRubbish:
-  - {fileID: 1505832180}
-  - {fileID: 1505832180}
-  - {fileID: 1505832180}
-  - {fileID: 1505832180}
-  - {fileID: 1505832180}
-  - {fileID: 1505832180}
-  - {fileID: 1505832180}
-  - {fileID: 1505832180}
-  - {fileID: 1505832180}
-  - {fileID: 1505832180}
-  - {fileID: 1505832180}
-  - {fileID: 1505832180}
-  - {fileID: 1505832180}
-  - {fileID: 1505832180}
-  - {fileID: 1505832180}
-  - {fileID: 1505832180}
-  - {fileID: 1505832180}
-  - {fileID: 1505832180}
-  - {fileID: 1505832180}
-  - {fileID: 1505832180}
-  - {fileID: 1505832180}
-  - {fileID: 1505832180}
-  - {fileID: 1505832180}
-  - {fileID: 1505832180}
-  - {fileID: 1505832180}
-  - {fileID: 1505832180}
-  - {fileID: 1505832180}
-  - {fileID: 1505832180}
-  - {fileID: 1505832180}
-  - {fileID: 1505832180}
-  - {fileID: 1505832180}
-  - {fileID: 1505832180}
-  - {fileID: 1505832180}
-  - {fileID: 1505832180}
-  - {fileID: 1505832180}
-  - {fileID: 1505832180}
-  - {fileID: 1505832180}
-  - {fileID: 1505832180}
-  - {fileID: 1505832180}
-  - {fileID: 1505832180}
+  m_currentRubbish: []
   m_weightObjectResults: []
   m_moneyBag: {fileID: 1864501138715344, guid: 799738755acacf141b89edcd6b39f3ee, type: 2}
   m_rubbishHolder: {fileID: 1369054295}

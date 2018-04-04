@@ -1,0 +1,1 @@
+Categoric 5 WeightPerPersonWeek 0 WeightPerStreetWeek 1 LandfilledRubbishWeek 2 LandfilledRecyclingWeek 0 SortedRubbishWeek 0 

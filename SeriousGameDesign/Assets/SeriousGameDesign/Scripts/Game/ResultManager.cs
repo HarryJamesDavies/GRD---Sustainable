@@ -54,6 +54,13 @@ public class ResultManager : MonoBehaviour
     public List<BinCore> m_bins = new List<BinCore>();
     public List<Transform> m_binSpawnPoints = new List<Transform>();
 
+    public int m_day = 0;
+    public int m_dayRubbishLandfilled = 0;
+    public int m_dayRecyclingLandfilled = 0;
+    public int m_dayRubbishSorted = 0;
+    public int m_dayRecyclingSorted = 0;
+    public int m_dayRecyclingRecycled = 0;
+
     void Awake()
     {
         CreateInstance();
@@ -73,6 +80,7 @@ public class ResultManager : MonoBehaviour
 
     public void Begin()
     {
+        m_day++;
         m_state = ResultState.SpawnTruck;
     }
 
@@ -161,6 +169,8 @@ public class ResultManager : MonoBehaviour
                         m_startTimeB = Time.time;
                         m_journeyLengthB = Vector3.Distance(m_rubbishDumpTruck.transform.position, m_targetB.position);
 
+                        DataHandler.SaveCategoricData("Day (" + m_day + ") Results", GameManager.CurrentOutFolderPath, GenerateWeekData());
+
                         m_state = ResultState.MoveToDeath;
                     }
                     break;
@@ -183,6 +193,17 @@ public class ResultManager : MonoBehaviour
                     break;
                 }
         }
+    }
+
+    private List<CategoricData.CategoricPair> GenerateWeekData()
+    {
+        List<CategoricData.CategoricPair> data = new List<CategoricData.CategoricPair>();
+        data.Add(new CategoricData.CategoricPair("RecycledRecyclingDay", m_dayRecyclingRecycled));
+        data.Add(new CategoricData.CategoricPair("LandfilledRubbishDay", m_dayRubbishLandfilled));
+        data.Add(new CategoricData.CategoricPair("LandfilledRecyclingDay", m_dayRecyclingLandfilled));
+        data.Add(new CategoricData.CategoricPair("SortedRubbishDay", m_dayRubbishSorted));
+        data.Add(new CategoricData.CategoricPair("SortedRecyclingDay", m_dayRecyclingSorted));
+        return data;
     }
 
     private bool MoveTruck(float _speed)
