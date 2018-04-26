@@ -1,1 +1,1 @@
-Categoric 7 WeightPerPersonWeek 3 WeightPerStreetWeek 300 LandfilledRubbishWeek 0 LandfilledRecyclingWeek 2 SortedRubbishWeek 0 MoneySpentWeek 0 PlaySessionLength 73.37526 
+Categoric 7 WeightPerPersonWeek 9 WeightPerStreetWeek 900 LandfilledRubbishWeek 3 LandfilledRecyclingWeek 2 SortedRubbishWeek 1 MoneySpentWeek 0.15 PlaySessionLength 74.07628 

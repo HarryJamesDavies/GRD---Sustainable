@@ -193,6 +193,28 @@ public class OutcomeManager : MonoBehaviour
     {
         if (!m_spawnObjects)
         {
+            m_rubbishSign.text = "= " + (GameManager.Instance.m_landFilledRubbish.Count
+                    + GameManager.Instance.m_sortedRubbish.Count).ToString();
+            m_recyclingSign.text = "= " + (GameManager.Instance.m_landFilledRecycling.Count +
+                GameManager.Instance.m_sortedRecycling.Count).ToString();
+            m_moneySign.text = (m_currentSortCount * m_poundPerKg).ToString("F2");
+            m_sortedSign.text = "= " + (m_sortedMoneyBags.Count).ToString();
+
+            m_currentRubbish.AddRange(GameManager.Instance.m_landFilledRecycling);
+            m_currentRubbish.AddRange(GameManager.Instance.m_sortedRecycling);
+
+            for (int rubbishIter = 0; rubbishIter < m_currentRubbish.Count; rubbishIter++)
+            {
+                m_currentWeight += m_currentRubbish[rubbishIter].GetComponent<Rubbish>().m_weight;
+            }
+            m_currentRubbish.AddRange(m_sortedMoneyBags);
+
+            m_currentRubbishCount = GameManager.Instance.m_landFilledRubbish.Count + GameManager.Instance.m_sortedRubbish.Count;
+            m_currentRecyclingCount = GameManager.Instance.m_landFilledRecycling.Count + GameManager.Instance.m_sortedRecycling.Count;
+            m_currentSortCount = GameManager.Instance.m_sortedRubbish.Count + GameManager.Instance.m_sortedRecycling.Count;
+
+            m_moneySign.text = (m_currentSortCount * m_poundPerKg).ToString("F2");
+
             m_totalSpawnLength = _length;
             if (m_currentRubbish.Count == 0)
             {
@@ -208,6 +230,7 @@ public class OutcomeManager : MonoBehaviour
                 m_spawnLength = m_totalSpawnLength / m_currentRubbish.Count;
                 m_remainingTime = 0.0f;
             }
+
             m_spawnObjects = true;
         }
     }
@@ -287,63 +310,64 @@ public class OutcomeManager : MonoBehaviour
             rubbish.GetComponent<Rigidbody>().useGravity = true;
             m_currentRubbish.RemoveAt(0);
             m_spawnedRubbish++;
+            m_remainingTime = m_spawnLength;
 
-            if (m_spawnRubbish)
-            {
-                m_currentRubbishCount++;
-                m_rubbishSign.text = "= " + m_currentRubbishCount.ToString();
+            //if (m_spawnRubbish)
+            //{
+            //    m_currentRubbishCount++;
+            //    m_rubbishSign.text = "= " + m_currentRubbishCount.ToString();
 
-                m_currentWeight += rubbish.GetComponent<Rubbish>().m_weight;
-                m_weightSign.text = m_currentWeight.ToString("F2");
-            }
-            else if (m_spawnRecycling)
-            {
-                m_currentRecyclingCount++;
-                m_recyclingSign.text = "= " + m_currentRecyclingCount.ToString();
+            //    m_currentWeight += rubbish.GetComponent<Rubbish>().m_weight;
+            //    m_weightSign.text = m_currentWeight.ToString("F2");
+            //}
+            //else if (m_spawnRecycling)
+            //{
+            //    m_currentRecyclingCount++;
+            //    m_recyclingSign.text = "= " + m_currentRecyclingCount.ToString();
 
-                m_currentWeight += rubbish.GetComponent<Rubbish>().m_weight;
-                m_weightSign.text = m_currentWeight.ToString("F2");
-            }
-            else if (m_spawnMoney)
-            {
-                m_currentSortCount++;
-                m_sortedSign.text = "= " + (m_currentSortCount).ToString();
+            //    m_currentWeight += rubbish.GetComponent<Rubbish>().m_weight;
+            //    m_weightSign.text = m_currentWeight.ToString("F2");
+            //}
+            //else if (m_spawnMoney)
+            //{
+            //    m_currentSortCount++;
+            //    m_sortedSign.text = "= " + (m_currentSortCount).ToString();
 
-                m_moneySign.text = (m_currentSortCount * m_poundPerKg).ToString("F2");
-            }
-            else
-            {
-                m_remainingTime = m_spawnLength;
-            }
+            //    m_moneySign.text = (m_currentSortCount * m_poundPerKg).ToString("F2");
+            //}
+            //else
+            //{
+            //    m_remainingTime = m_spawnLength;
+            //}
         }
 
-        if (m_currentRubbish.Count == 0)
-        {
-            if (m_spawnRubbish)
-            {
-                m_spawnRubbish = false;
-                m_spawnRecycling = true;
+        //if (m_currentRubbish.Count == 0)
+        //{
+        //    if (m_spawnRubbish)
+        //    {
+        //        m_spawnRubbish = false;
+        //        m_spawnRecycling = true;
 
-                m_currentRubbish.AddRange(GameManager.Instance.m_landFilledRecycling);
-                m_currentRubbish.AddRange(GameManager.Instance.m_sortedRecycling);
+        //        m_currentRubbish.AddRange(GameManager.Instance.m_landFilledRecycling);
+        //        m_currentRubbish.AddRange(GameManager.Instance.m_sortedRecycling);
 
-                m_remainingTime = m_spawnLength;
-            }
-            else if (m_spawnRecycling)
-            {
-                m_spawnRecycling = false;
-                m_spawnMoney = true;
+        //        m_remainingTime = m_spawnLength;
+        //    }
+        //    else if (m_spawnRecycling)
+        //    {
+        //        m_spawnRecycling = false;
+        //        m_spawnMoney = true;
 
-                m_currentRubbish.AddRange(m_sortedMoneyBags);
+        //        m_currentRubbish.AddRange(m_sortedMoneyBags);
 
-                m_remainingTime = m_spawnLength;
-            }
-            else if (m_spawnMoney)
-            {
-                m_spawnMoney = false;
-                m_spawnObjects = false;
-            }
-        }
+        //        m_remainingTime = m_spawnLength;
+        //    }
+        //    else if (m_spawnMoney)
+        //    {
+        //        m_spawnMoney = false;
+        //        m_spawnObjects = false;
+        //    }
+        //}
     }
 
     private void InitialiseOutcome()
