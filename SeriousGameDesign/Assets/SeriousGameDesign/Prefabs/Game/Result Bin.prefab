@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 4556127574040980}
   - component: {fileID: 33876427805212350}
   - component: {fileID: 23318831190234504}
+  - component: {fileID: 114856075535704524}
   m_Layer: 0
   m_Name: body
   m_TagString: Untagged
@@ -110,6 +111,7 @@ GameObject:
   - component: {fileID: 4865729368589676}
   - component: {fileID: 33704987093372676}
   - component: {fileID: 23400178457195834}
+  - component: {fileID: 114945798442573078}
   m_Layer: 0
   m_Name: wheels
   m_TagString: Untagged
@@ -563,10 +565,12 @@ MonoBehaviour:
     m_compatibleAction: Any
     m_action: {fileID: 114537365911209520}
     m_toggle: 1
+    m_requiresOptionBar: 0
   - m_actionName: Carry
     m_compatibleAction: 
     m_action: {fileID: 114942346096902730}
     m_toggle: 0
+    m_requiresOptionBar: 0
 --- !u!114 &114810428919215152
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -594,6 +598,22 @@ MonoBehaviour:
   m_rubbish: []
   m_dropPoint: {fileID: 4662974317396724}
   m_resultBin: 1
+--- !u!114 &114856075535704524
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1443486763981790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbf3575480402db40813e763382412fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: 1
+  eraseRenderer: 0
+  originalLayer: 0
+  originalMaterials:
+  - {fileID: 2100000, guid: 110c4631f21b8ba4d97979ac2b1b108c, type: 2}
 --- !u!114 &114942346096902730
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -605,6 +625,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c61bc336f9c7b14db374dfbfe9643df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114945798442573078
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1456092890858594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbf3575480402db40813e763382412fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: 1
+  eraseRenderer: 0
+  originalLayer: 0
+  originalMaterials:
+  - {fileID: 2100000, guid: 110c4631f21b8ba4d97979ac2b1b108c, type: 2}
 --- !u!114 &114989112332598746
 MonoBehaviour:
   m_ObjectHideFlags: 1

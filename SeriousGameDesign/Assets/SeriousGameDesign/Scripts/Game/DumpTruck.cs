@@ -96,10 +96,9 @@ public class DumpTruck : MonoBehaviour
         m_remainingTime -= Time.deltaTime;
         if (m_remainingTime <= 0.0f && m_currentBin.m_rubbish.Count != 0)
         {
-
+            GameManager.Instance.m_remainingRubbish.Remove(m_currentBin.m_rubbish[0]);
             GameObject rubbish = Instantiate(m_currentBin.m_rubbish[0], m_rubbishSpawnPoint.position, Quaternion.identity, transform);
-            GameManager.Instance.m_remainingRubbish.Remove(rubbish);
-            //rubbish.GetComponent<Rubbish>().m_ignoreManager = true; 
+            rubbish.GetComponent<Rubbish>().m_ignoreManager = true; 
             rubbish.GetComponent<Rigidbody>().useGravity = true;
             m_currentBin.RemoveRubbish(m_currentBin.m_rubbish[0]);
 

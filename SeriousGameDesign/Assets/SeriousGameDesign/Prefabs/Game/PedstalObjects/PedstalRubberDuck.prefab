@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4310372459847778}
   - component: {fileID: 33235704343467312}
   - component: {fileID: 23215896008336246}
+  - component: {fileID: 114402476019300058}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -303,6 +304,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_speed: {x: 15, y: 30, z: 45}
+--- !u!114 &114402476019300058
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1059036471206704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbf3575480402db40813e763382412fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: 0
+  eraseRenderer: 0
+  originalLayer: 0
+  originalMaterials:
+  - {fileID: 2100000, guid: 110c4631f21b8ba4d97979ac2b1b108c, type: 2}
 --- !u!114 &114750220227094454
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -314,7 +331,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d7a57a8cab89604ca975bca4bcb8391, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_weight: 10
+  m_weight: 0.1
   m_icon: {fileID: 21300000, guid: 20a69f40e7c76334baffb297905127f1, type: 3}
   m_pedstalObject: {fileID: 1812505333653100}
   m_cargoObject: {fileID: 1061688986888776, guid: a7eaae7646f774c47808ad76461897d7,

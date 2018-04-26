@@ -1,1 +1,0 @@
-Categoric 4 RecyclingDestroyed 2 RecyclingRecycled 2 RubbishDestroyed 4 RubbishRecycled 0 

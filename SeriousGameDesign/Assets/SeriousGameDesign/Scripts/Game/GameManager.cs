@@ -33,17 +33,15 @@ public class GameManager : MonoBehaviour
     public List<GameObject> m_sortedRubbish = new List<GameObject>();
     public List<GameObject> m_sortedRecycling = new List<GameObject>();
     public List<GameObject> m_recycledRubbish = new List<GameObject>();
-    //public int m_landFilledRubbish = 0;
-    //public int m_landFilledRecycling = 0;
-    //public int m_recycledRubbish = 0;
-    //public int m_sortedRubbish = 0;
 
     public Text m_RuLF;
     public Text m_ReLF;
     public Text m_SR;
     public Text m_ReR;
 
+    public float m_startTime = 0.0f;
     public static string CurrentOutFolderPath = "";
+    public static string CurrentInFolderPath = "";
 
     void Awake()
     {
@@ -64,7 +62,22 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        CurrentOutFolderPath = DataHandler.CreateFolder("Play (1)", DataHandler.OutDataPath);
+        GameData gameData = FindObjectOfType<GameData>();
+        string folderName = "";
+        if(!gameData)
+        {
+            folderName = "DefaultyFace from DefaultyTown";
+        }
+        else
+        {
+            folderName = gameData.m_playerName + " from " + gameData.m_townName;
+        }
+        CurrentOutFolderPath = DataHandler.CreateFolder(folderName, DataHandler.OutDataPath);
+        CurrentInFolderPath = DataHandler.CreateFolder(folderName, DataHandler.InDataPath);
+
+        TutorialManager.Instance.BeginPlayTutorial();
+
+        m_startTime = Time.time;
     }
 
     void Update()
@@ -108,6 +121,7 @@ public class GameManager : MonoBehaviour
                     m_playArea.SetActive(false);
                     m_outcomeArea.SetActive(false);
                     m_resultArea.SetActive(true);
+                    TutorialManager.Instance.BeginResultTutorial();
                     ResultManager.Instance.Begin();
                     break;
                 }
@@ -119,6 +133,7 @@ public class GameManager : MonoBehaviour
                     m_playArea.SetActive(false);
                     m_resultArea.SetActive(false);
                     m_outcomeArea.SetActive(true);
+                    TutorialManager.Instance.BeginOutcomeTutorial();
                     OutcomeManager.Instance.Begin();
                     break;
                 }

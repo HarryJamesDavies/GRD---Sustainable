@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33939699797375522}
   - component: {fileID: 23964786108593554}
   - component: {fileID: 95156457889336464}
+  - component: {fileID: 114181398667454558}
   m_Layer: 0
   m_Name: Battery1
   m_TagString: Untagged
@@ -163,6 +164,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8bf7b800f0fbc04f9d0ccf0df657c60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_ignoreManager: 0
+  m_weight: 0
+--- !u!114 &114181398667454558
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1547898597336008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbf3575480402db40813e763382412fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: 0
+  eraseRenderer: 0
+  originalLayer: 0
+  originalMaterials:
+  - {fileID: 2100000, guid: 110c4631f21b8ba4d97979ac2b1b108c, type: 2}
 --- !u!114 &114602928219196148
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -191,10 +210,12 @@ MonoBehaviour:
     m_compatibleAction: 
     m_action: {fileID: 114602928219196148}
     m_toggle: 0
+    m_requiresOptionBar: 0
   - m_actionName: Inspect
     m_compatibleAction: Any
     m_action: {fileID: 114851049077509328}
     m_toggle: 1
+    m_requiresOptionBar: 1
 --- !u!114 &114851049077509328
 MonoBehaviour:
   m_ObjectHideFlags: 1

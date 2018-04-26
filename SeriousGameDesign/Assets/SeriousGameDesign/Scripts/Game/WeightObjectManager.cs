@@ -51,9 +51,4 @@ public class WeightObjectManager : MonoBehaviour
             }
         }
 	}
-	
-	void Update ()
-    {
-		
-	}
 }

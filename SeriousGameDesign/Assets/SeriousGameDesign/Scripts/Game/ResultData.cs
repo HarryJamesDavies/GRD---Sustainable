@@ -23,9 +23,13 @@ public class ResultData : MonoBehaviour
     public float m_landfilledRecycling;
     public float m_sortedRubbish;
     public List<WeightObjectResult> m_weightObjectResults = new List<WeightObjectResult>();
+    public float m_playSessionLength;
+
+    public float m_moneySpent;
 
     public void Initalise(float _weightPerPerson, float _weightPerStreet, float _landfileldRubbish,
-        float _landfilledRecycling, float _sortedRubbish, List<WeightObjectResult> __weightObjectResults)
+        float _landfilledRecycling, float _sortedRubbish, List<WeightObjectResult> __weightObjectResults,
+        float _moneySpent, float _playSessionLength)
     {
         m_weightPerPerson = _weightPerPerson;
         m_weightPerStreet = _weightPerStreet;
@@ -33,6 +37,8 @@ public class ResultData : MonoBehaviour
         m_landfilledRecycling = _landfilledRecycling;
         m_sortedRubbish = _sortedRubbish;
         m_weightObjectResults.AddRange(__weightObjectResults);
+        m_moneySpent = _moneySpent;
+        m_playSessionLength = _playSessionLength;
 
         DontDestroyOnLoad(gameObject);
     }

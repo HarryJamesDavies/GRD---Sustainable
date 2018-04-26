@@ -103,7 +103,6 @@ GameObject:
   - component: {fileID: 223020552126297670}
   - component: {fileID: 114156339840105938}
   - component: {fileID: 114149779733254320}
-  - component: {fileID: 114570629075705308}
   m_Layer: 5
   m_Name: ObjectsCanvas
   m_TagString: Untagged
@@ -711,7 +710,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1870629005239490}
   m_LocalRotation: {x: 0.3826834, y: -0.000000029802319, z: -0, w: 0.92387956}
-  m_LocalPosition: {x: -0.00000705719, y: 1.4999951, z: -0.09999495}
+  m_LocalPosition: {x: 0.5, y: 1.5, z: -0.1}
   m_LocalScale: {x: 1.0000001, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4564272967571746}
@@ -724,7 +723,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1096465170319608}
   m_LocalRotation: {x: 0.3826834, y: -0.000000029802319, z: -0, w: 0.92387956}
-  m_LocalPosition: {x: 0.5, y: 1.5, z: -0.1}
+  m_LocalPosition: {x: 0, y: 1.5, z: -0.1}
   m_LocalScale: {x: 1.0000001, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4564272967571746}
@@ -1211,6 +1210,9 @@ MonoBehaviour:
   m_currentWeightedObjects: []
   m_weightObjectsPrefabs:
   - {fileID: 114750220227094454, guid: 84fcc71b7c9f73d48b4a645a94f76b73, type: 2}
+  - {fileID: 114569374230810288, guid: 9f947abd4b3f6c546b6cf308dd73ea06, type: 2}
+  - {fileID: 114108599627047536, guid: 65295b72bbf4b3549956222219f6989e, type: 2}
+  - {fileID: 114115517188367100, guid: f94467099fca5204a89db31453f0bd47, type: 2}
   m_objectCounts: 
   m_pedstals:
   - m_objectPanel: {fileID: 1517629268335146}
@@ -1398,25 +1400,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 0.1 kg
---- !u!114 &114570629075705308
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1106734658916762}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f124776295b8d647804259e8db4af92, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_isOver: 0
-  m_fadeNow: 0
-  m_overrideFade: 0
-  m_fadeLength: 2
-  m_elapsedWait: 0
-  m_waitLength: 10
-  m_infoPanel: {fileID: 1674814245004162}
-  m_alphaLevels: {x: 0, y: 1}
 --- !u!114 &114585926899311018
 MonoBehaviour:
   m_ObjectHideFlags: 1

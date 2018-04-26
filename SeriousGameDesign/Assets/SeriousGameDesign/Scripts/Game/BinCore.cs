@@ -106,6 +106,8 @@ public class BinCore : MonoBehaviour
         {
             if (!CheckAcceptable(rubbish))
             {
+                GameManager.Instance.m_remainingRubbish.Remove(rubbish);
+
                 if (rubbish.CompareTag("Standard"))
                 {
                     sortedRubbish.m_rubbish.Add(rubbish);

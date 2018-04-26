@@ -50,7 +50,7 @@ MonoBehaviour:
   m_wedgePrefab: {fileID: 114112623486491864, guid: 198b49d7b4d7b6746b5b01111171f7fd,
     type: 2}
   m_reserveWedges: 20
-  m_radius: 200
+  m_radius: 150
 --- !u!224 &224547848484453500
 RectTransform:
   m_ObjectHideFlags: 1

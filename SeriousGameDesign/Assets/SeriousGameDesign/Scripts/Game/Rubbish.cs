@@ -6,11 +6,16 @@ public class Rubbish : MonoBehaviour
 {
     public bool m_ignoreManager = false;
 
+    public float m_weight = 0.0f;
+
 	void Start ()
     {
-        if(m_ignoreManager)
+        if(!m_ignoreManager)
         {
-            GameManager.Instance.m_remainingRubbish.Add(gameObject);
+            if (GameManager.Instance)
+            {
+                GameManager.Instance.m_remainingRubbish.Add(gameObject);
+            }
         }
 	}
 }

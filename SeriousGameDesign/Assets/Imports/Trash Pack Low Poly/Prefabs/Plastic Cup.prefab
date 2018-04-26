@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 33664719718924322}
   - component: {fileID: 23225259609758962}
   - component: {fileID: 95879157893873992}
+  - component: {fileID: 114581853914795636}
   m_Layer: 9
   m_Name: PlasticCoup
   m_TagString: Untagged
@@ -169,10 +170,28 @@ MonoBehaviour:
     m_compatibleAction: 
     m_action: {fileID: 114826543901788942}
     m_toggle: 0
+    m_requiresOptionBar: 0
   - m_actionName: Inspect
     m_compatibleAction: Any
     m_action: {fileID: 114685165739659938}
     m_toggle: 1
+    m_requiresOptionBar: 1
+--- !u!114 &114581853914795636
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1958308403362476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbf3575480402db40813e763382412fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: 0
+  eraseRenderer: 0
+  originalLayer: 0
+  originalMaterials:
+  - {fileID: 2100000, guid: 110c4631f21b8ba4d97979ac2b1b108c, type: 2}
 --- !u!114 &114685165739659938
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -209,6 +228,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8bf7b800f0fbc04f9d0ccf0df657c60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_ignoreManager: 0
+  m_weight: 0
 --- !u!136 &136109809554173240
 CapsuleCollider:
   m_ObjectHideFlags: 1

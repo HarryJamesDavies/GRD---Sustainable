@@ -110,6 +110,7 @@ GameObject:
   - component: {fileID: 33157407925492806}
   - component: {fileID: 23301583593766324}
   - component: {fileID: 95016037832730458}
+  - component: {fileID: 114258600009301078}
   m_Layer: 9
   m_Name: Trashcan2
   m_TagString: Untagged
@@ -462,6 +463,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c61bc336f9c7b14db374dfbfe9643df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114258600009301078
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1612328996591070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbf3575480402db40813e763382412fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: 0
+  eraseRenderer: 0
+  originalLayer: 0
+  originalMaterials: []
 --- !u!114 &114374919233727256
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -491,10 +507,12 @@ MonoBehaviour:
     m_compatibleAction: 
     m_action: {fileID: 114129269171958796}
     m_toggle: 0
+    m_requiresOptionBar: 0
   - m_actionName: Inspect
     m_compatibleAction: Any
     m_action: {fileID: 114007415553683682}
     m_toggle: 1
+    m_requiresOptionBar: 1
 --- !u!114 &114702483475750536
 MonoBehaviour:
   m_ObjectHideFlags: 1

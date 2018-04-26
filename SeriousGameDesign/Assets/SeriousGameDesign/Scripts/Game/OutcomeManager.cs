@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public enum SignType
 {
@@ -21,6 +22,16 @@ public class Sign
         m_sign = _sign;
         m_itemMax = _itemMax;
     }
+}
+
+public enum GroupSize
+{
+    Null,
+    House,
+    Street,
+    Town,
+    City,
+    Country
 }
 
 public class OutcomeManager : MonoBehaviour
@@ -59,6 +70,8 @@ public class OutcomeManager : MonoBehaviour
     public int m_maxDumpPerRound = 10;
     private int m_spawnedRubbish = 0;
 
+    private Dictionary<GroupSize, int> m_groupToPopulation = new Dictionary<GroupSize, int>();
+
     [Header("UI")]
     public SignType m_signType = SignType.Rubbish;
     
@@ -66,6 +79,7 @@ public class OutcomeManager : MonoBehaviour
     public Text m_recyclingSign;
     public Text m_sortedSign;
     public Text m_weightSign;
+    public Text m_moneySign;
 
     private int m_currentRubbishCount = 0;
     private int m_currentRecyclingCount = 0;
@@ -73,17 +87,23 @@ public class OutcomeManager : MonoBehaviour
     private float m_currentWeight = 0.0f;
 
     public Canvas m_calculationUI;
+    public Text m_peopleInGroupText;
+    public Text m_peoplePerGroupText;
     public Text m_weightPerPersonText;
     public Text m_weightPerStreetText;
-    public InputField m_peoplePerStreetField;
+    public Dropdown m_peoplePerStreetField;
     public Button m_beginOutcomeButton;
+    public Button m_endOutcomeButton;
     public GameObject m_objectBase;
     public Text m_remainWeightText;
+    public GameObject m_infoText;
 
     [Header("Stats")]
     public float m_weightPerPerson = 0.0f;
     public float m_weightPerStreet = 0.0f;
     public int m_peoplePerStreet = 0;
+
+    public float m_poundPerKg = 0.15f;
 
     void Awake()
     {
@@ -94,6 +114,21 @@ public class OutcomeManager : MonoBehaviour
     {
         m_peoplePerStreetField.onValueChanged.AddListener(OnPeoplePerStreetChange);
         m_beginOutcomeButton.onClick.AddListener(BeginOutcome);
+       
+        List<Dropdown.OptionData> fileData = new List<Dropdown.OptionData>();
+        fileData.Add(new Dropdown.OptionData(""));
+        m_groupToPopulation.Add(GroupSize.Null, 0);
+        fileData.Add(new Dropdown.OptionData(GroupSize.House.ToString()));
+        m_groupToPopulation.Add(GroupSize.House, 1);
+        fileData.Add(new Dropdown.OptionData(GroupSize.Street.ToString()));
+        m_groupToPopulation.Add(GroupSize.Street, 100);
+        fileData.Add(new Dropdown.OptionData(GroupSize.Town.ToString()));
+        m_groupToPopulation.Add(GroupSize.Town, 1000);
+        //fileData.Add(new Dropdown.OptionData(GroupSize.City.ToString()));
+        //m_groupToPopulation.Add(GroupSize.City, 400000);
+        //fileData.Add(new Dropdown.OptionData(GroupSize.Country.ToString()));
+        //m_groupToPopulation.Add(GroupSize.Country, 65000000);
+        m_peoplePerStreetField.AddOptions(fileData);
     }
 
     private void CreateInstance()
@@ -156,22 +191,25 @@ public class OutcomeManager : MonoBehaviour
 
     public void OnDumpBegin(float _length)
     {
-        m_totalSpawnLength = _length;
-        if(m_currentRubbish.Count == 0)
+        if (!m_spawnObjects)
         {
-            m_remainingTime = m_totalSpawnLength + 1.0f;
+            m_totalSpawnLength = _length;
+            if (m_currentRubbish.Count == 0)
+            {
+                m_remainingTime = m_totalSpawnLength + 1.0f;
+            }
+            else if (m_currentRubbish.Count > m_maxDumpPerRound)
+            {
+                m_spawnLength = m_totalSpawnLength / m_rubbishPerRound;
+                m_remainingTime = 0.0f;
+            }
+            else
+            {
+                m_spawnLength = m_totalSpawnLength / m_currentRubbish.Count;
+                m_remainingTime = 0.0f;
+            }
+            m_spawnObjects = true;
         }
-        else if (m_currentRubbish.Count > m_maxDumpPerRound)
-        {
-            m_spawnLength = m_totalSpawnLength / m_rubbishPerRound;
-            m_remainingTime = 0.0f;
-        }
-        else
-        {
-            m_spawnLength = m_totalSpawnLength / m_currentRubbish.Count;
-            m_remainingTime = 0.0f;
-        }
-        m_spawnObjects = true;
     }
 
     public void OnDumpEnd()
@@ -198,16 +236,44 @@ public class OutcomeManager : MonoBehaviour
     {
         if (m_spawnObjects)
         {
-            SpawnRubbish();
+            if(Input.GetKeyDown(KeyCode.Return))
+            {
+                m_spawnRubbish = false;
+                m_spawnRecycling = false;
+                m_spawnMoney = false;
+                m_spawnObjects = false;
+
+                m_rubbishSign.text = "= " + (GameManager.Instance.m_landFilledRubbish.Count
+                    + GameManager.Instance.m_sortedRubbish.Count).ToString();
+                m_recyclingSign.text = "= " + (GameManager.Instance.m_landFilledRecycling.Count +
+                    GameManager.Instance.m_sortedRecycling.Count).ToString();
+                m_moneySign.text = (m_currentSortCount * m_poundPerKg).ToString("F2");
+                m_sortedSign.text = "= " + (m_sortedMoneyBags.Count).ToString();
+
+                m_remainingTime = 0.0f;
+            }
+            else
+            {
+                SpawnRubbish();
+            }
         }
 
         if (m_showOutcome)
         {
-            if (!m_outcomeShown)
+            if (m_currentWeight >= m_weightPerStreet)
             {
-                HandleOutcome();
+                if (!m_endOutcomeButton.gameObject.activeInHierarchy)
+                {
+                    m_endOutcomeButton.gameObject.SetActive(true);
+                    m_objectBase.SetActive(false);
+                }
             }
         }
+    }
+
+    public void EndLevel()
+    {
+        HandleOutcome();
     }
 
     public void SpawnRubbish()
@@ -227,7 +293,7 @@ public class OutcomeManager : MonoBehaviour
                 m_currentRubbishCount++;
                 m_rubbishSign.text = "= " + m_currentRubbishCount.ToString();
 
-                m_currentWeight += 0.7f;
+                m_currentWeight += rubbish.GetComponent<Rubbish>().m_weight;
                 m_weightSign.text = m_currentWeight.ToString("F2");
             }
             else if (m_spawnRecycling)
@@ -235,45 +301,47 @@ public class OutcomeManager : MonoBehaviour
                 m_currentRecyclingCount++;
                 m_recyclingSign.text = "= " + m_currentRecyclingCount.ToString();
 
-                m_currentWeight += 0.7f;
+                m_currentWeight += rubbish.GetComponent<Rubbish>().m_weight;
                 m_weightSign.text = m_currentWeight.ToString("F2");
             }
             else if (m_spawnMoney)
             {
                 m_currentSortCount++;
-                m_sortedSign.text = "= " + m_currentSortCount.ToString();
-            }
+                m_sortedSign.text = "= " + (m_currentSortCount).ToString();
 
-            if (m_currentRubbish.Count == 0)
-            {
-                if (m_spawnRubbish)
-                {
-                    m_spawnRubbish = false;
-                    m_spawnRecycling = true;
-
-                    m_currentRubbish.AddRange(GameManager.Instance.m_landFilledRecycling);
-                    m_currentRubbish.AddRange(GameManager.Instance.m_sortedRecycling);
-
-                    m_remainingTime = m_spawnLength;
-                }
-                else if (m_spawnRecycling)
-                {
-                    m_spawnRecycling = false;
-                    m_spawnMoney = true;
-
-                    m_currentRubbish.AddRange(m_sortedMoneyBags);
-
-                    m_remainingTime = m_spawnLength;
-                }
-                else if (m_spawnMoney)
-                {
-                    m_spawnMoney = false;
-                    m_spawnObjects = false;
-                }
+                m_moneySign.text = (m_currentSortCount * m_poundPerKg).ToString("F2");
             }
             else
             {
                 m_remainingTime = m_spawnLength;
+            }
+        }
+
+        if (m_currentRubbish.Count == 0)
+        {
+            if (m_spawnRubbish)
+            {
+                m_spawnRubbish = false;
+                m_spawnRecycling = true;
+
+                m_currentRubbish.AddRange(GameManager.Instance.m_landFilledRecycling);
+                m_currentRubbish.AddRange(GameManager.Instance.m_sortedRecycling);
+
+                m_remainingTime = m_spawnLength;
+            }
+            else if (m_spawnRecycling)
+            {
+                m_spawnRecycling = false;
+                m_spawnMoney = true;
+
+                m_currentRubbish.AddRange(m_sortedMoneyBags);
+
+                m_remainingTime = m_spawnLength;
+            }
+            else if (m_spawnMoney)
+            {
+                m_spawnMoney = false;
+                m_spawnObjects = false;
             }
         }
     }
@@ -288,20 +356,39 @@ public class OutcomeManager : MonoBehaviour
         m_calculationUI.gameObject.SetActive(true);
     }
 
-    public void OnPeoplePerStreetChange(string _input)
+    public void OnPeoplePerStreetChange(int _input)
     {
-        m_peoplePerStreet = int.Parse(_input);
+        m_peoplePerStreet = m_groupToPopulation[(GroupSize)_input];
+        m_peopleInGroupText.text = m_peoplePerStreet.ToString();
+        m_peoplePerGroupText.text = m_peoplePerStreet.ToString();
         m_weightPerStreet = m_peoplePerStreet * m_weightPerPerson;
         m_weightPerStreetText.text = m_weightPerStreet.ToString();
-        if(m_peoplePerStreet != 0)
+        if (m_peoplePerStreet != 1)
         {
             m_beginOutcomeButton.gameObject.SetActive(true);
+            m_infoText.SetActive(false);
         }
         else
         {
             m_beginOutcomeButton.gameObject.SetActive(false);
+            m_infoText.SetActive(true);
         }
     }
+
+    //public void OnPeoplePerStreetChange(string _input)
+    //{
+    //    m_peoplePerStreet = int.Parse(_input);
+    //    m_weightPerStreet = m_peoplePerStreet * m_weightPerPerson;
+    //    m_weightPerStreetText.text = m_weightPerStreet.ToString();
+    //    if (m_peoplePerStreet != 0)
+    //    {
+    //        m_beginOutcomeButton.gameObject.SetActive(true);
+    //    }
+    //    else
+    //    {
+    //        m_beginOutcomeButton.gameObject.SetActive(false);
+    //    }
+    //}
 
     public void BeginOutcome()
     {
@@ -318,12 +405,9 @@ public class OutcomeManager : MonoBehaviour
 
     private void HandleOutcome()
     {
-        if (m_currentWeight >= m_weightPerStreet)
-        {
-            m_outcomeShown = true;
-            CreateWeekResultsData();
-            SceneChanger.TransitionScene("Results");
-        }
+        m_outcomeShown = true;
+        CreateWeekResultsData();
+        SceneChanger.TransitionScene("Results");
     }
 
     private void CreateWeekResultsData()
@@ -332,9 +416,10 @@ public class OutcomeManager : MonoBehaviour
 
         data.Initalise(m_weightPerPerson, m_weightPerStreet, m_currentRubbishCount,
             m_currentRecyclingCount, m_currentSortCount,
-            m_weightObjectResults);
-
+            m_weightObjectResults, m_currentSortCount * m_poundPerKg, Time.time - GameManager.Instance.m_startTime);
+        
         DataHandler.SaveCategoricData("WeekResults", GameManager.CurrentOutFolderPath, GenerateWeekData(data));
+        DataHandler.SaveCategoricData("WeekResults", GameManager.CurrentInFolderPath, GenerateWeekData(data));
     }
 
     private List<CategoricData.CategoricPair> GenerateWeekData(ResultData _data)
@@ -346,6 +431,9 @@ public class OutcomeManager : MonoBehaviour
         data.Add(new CategoricData.CategoricPair("LandfilledRubbishWeek", _data.m_landfileldRubbish));
         data.Add(new CategoricData.CategoricPair("LandfilledRecyclingWeek", _data.m_landfilledRecycling));
         data.Add(new CategoricData.CategoricPair("SortedRubbishWeek", _data.m_sortedRubbish));
+        data.Add(new CategoricData.CategoricPair("MoneySpentWeek", _data.m_moneySpent));
+
+        data.Add(new CategoricData.CategoricPair("PlaySessionLength", _data.m_playSessionLength));
         return data;
     }
 

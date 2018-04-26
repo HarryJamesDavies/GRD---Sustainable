@@ -36,6 +36,8 @@ public class Player : MonoBehaviour
 
     public bool m_disableCargo = false;
 
+    public bool m_lockMenus = true;
+
     private Vector3 m_cargoPreviousPosition;
     public Vector2 m_displacementRange = new Vector2(0.0f, 100.0f);
     public float m_maxThrowMagnitude = 10.0f;
@@ -80,17 +82,20 @@ public class Player : MonoBehaviour
     {
         CheckCasts();
 
-        if(m_disableCargo)
+        if(!m_lockMenus)
         {
-            OptionsBarHandle();
-        }
-        else
-        {
-            OptionsBarHandle();
-            CargoHandle();
-            if(m_currentCargo)
+            if (m_disableCargo)
             {
-                m_cargoPreviousPosition = m_currentCargo.transform.position;
+                OptionsBarHandle();
+            }
+            else
+            {
+                OptionsBarHandle();
+                CargoHandle();
+                if (m_currentCargo)
+                {
+                    m_cargoPreviousPosition = m_currentCargo.transform.position;
+                }
             }
         }
     }

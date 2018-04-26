@@ -10,7 +10,8 @@ public enum ResultState
     SpawnTruck,
     MoveToFill,
     FillTruck,
-    MoveToDeath
+    MoveToDeath,
+    WaitingToEnd
 }
 
 public class ResultManager : MonoBehaviour
@@ -60,6 +61,9 @@ public class ResultManager : MonoBehaviour
     public int m_dayRubbishSorted = 0;
     public int m_dayRecyclingSorted = 0;
     public int m_dayRecyclingRecycled = 0;
+
+    public bool m_endingLevel = false;
+    public float m_remainingTime = 2.0f;
 
     void Awake()
     {
@@ -159,19 +163,19 @@ public class ResultManager : MonoBehaviour
                 }
             case ResultState.FillTruck:
                 {
-                    if (m_bins.Count == 0)
+                    if (m_bins.Count == 0 && !m_endingLevel)
                     {
                         m_targetA = m_truckDeathPointA;
-                        m_startTimeA = Time.time;
                         m_journeyLengthA = Vector3.Distance(m_rubbishDumpTruck.transform.position, m_targetA.position);
 
                         m_targetB = m_truckDeathPointB;
-                        m_startTimeB = Time.time;
                         m_journeyLengthB = Vector3.Distance(m_rubbishDumpTruck.transform.position, m_targetB.position);
 
                         DataHandler.SaveCategoricData("Day (" + m_day + ") Results", GameManager.CurrentOutFolderPath, GenerateWeekData());
+                        DataHandler.SaveCategoricData("Day (" + m_day + ") Results", GameManager.CurrentInFolderPath, GenerateWeekData());
 
-                        m_state = ResultState.MoveToDeath;
+                        m_remainingTime = 2.0f;
+                        m_state = ResultState.WaitingToEnd;
                     }
                     break;
                 }
@@ -185,6 +189,17 @@ public class ResultManager : MonoBehaviour
                         m_recyclingDumpTruck = null;
                         m_state = ResultState.Idle;
                         GameManager.Instance.ChangeState(GameState.Play);
+                    }
+                    break;
+                }
+            case ResultState.WaitingToEnd:
+                {
+                    m_remainingTime -= Time.deltaTime;
+                    if(m_remainingTime <= 0.0f)
+                    {
+                        m_startTimeA = Time.time;
+                        m_startTimeB = Time.time;
+                        m_state = ResultState.MoveToDeath;
                     }
                     break;
                 }
@@ -203,6 +218,12 @@ public class ResultManager : MonoBehaviour
         data.Add(new CategoricData.CategoricPair("LandfilledRecyclingDay", m_dayRecyclingLandfilled));
         data.Add(new CategoricData.CategoricPair("SortedRubbishDay", m_dayRubbishSorted));
         data.Add(new CategoricData.CategoricPair("SortedRecyclingDay", m_dayRecyclingSorted));
+
+        m_dayRecyclingRecycled = 0;
+        m_dayRubbishLandfilled = 0;
+        m_dayRecyclingLandfilled = 0;
+        m_dayRubbishSorted = 0;
+        m_dayRecyclingSorted = 0;
         return data;
     }
 

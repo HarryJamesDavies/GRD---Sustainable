@@ -1,0 +1,1 @@
+Categoric 5 RecycledRecyclingDay 0 LandfilledRubbishDay 0 LandfilledRecyclingDay 0 SortedRubbishDay 0 SortedRecyclingDay 0 
